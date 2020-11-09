@@ -1,0 +1,28 @@
+.input-panel-container {
+    width: 50%;
+    max-width: 50%;
+    height: 100%;
+    text-align: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#form {
+    width: 500px;
+    height: 600px;
+    border: solid black 1px;
+}
+  
+#input {
+    width: 500px;
+    height: 400px;
+}
+  
+#upload-btn {
+    width: 200px;
+    height: 30px;
+    margin-top: 15px;
+}

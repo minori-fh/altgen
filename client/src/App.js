@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import InputPanel from './components/InputPanel'
+
+class App extends Component {
+
+  constructor(props){
+    super()
+    this.state = {
+      dragging: false,
+      fies: [],
+    }
+  }
+
+  altgen = (files) => {
+    console.log("this is the arr of files: ", files)
+  }
+
+
+  render(){
+    return(
+      <div id="main-container">
+        <InputPanel altgen={this.altgen}/>
+
+      </div>
+    )
+  }
 }
 
 export default App;

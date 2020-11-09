@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+/* specific css */
+#main-container {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  background-color: black;
+}
