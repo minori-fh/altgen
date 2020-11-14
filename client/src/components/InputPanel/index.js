@@ -6,6 +6,7 @@ class InputPanel extends Component {
     constructor(props){
         super(props)
         this.files = []
+        this.dragCounter = 0
         this.state = {
             dragging: false,
         }
@@ -15,18 +16,19 @@ class InputPanel extends Component {
         console.log("onDragEnter hit")
         e.preventDefault() // prevent default action: opening dragged files
         e.stopPropagation() // prevent progating to other components
+        // this.dragCounter++; console.log(this.dragCounter)
+        // if (e.dataTransfer.items && e.dataTransfer.items.length > 0){ this.setState({dragging: true}) }
+
+        // setTimeout(console.log(this.state.dragging), 2000)
     }
     
     onDragLeave = (e) => {
         console.log("onDragLeave hit")
         e.preventDefault()
         e.stopPropagation()
-    }
-
-    onDragOver = (e) => {
-        console.log("onDragOver hit")
-        e.preventDefault()
-        e.stopPropagation()
+        // this.dragCounter--; console.log(this.dragCounter)
+        // if (this.dragCounter == 0){ this.setState({dragging: false}) }
+        // setTimeout(console.log(this.state.dragging), 2000)
     }
 
     onDrop = (e) => {
@@ -37,33 +39,34 @@ class InputPanel extends Component {
         // check to see if dragged item is a file
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0){
 
-            let thisFile = e.dataTransfer.files[0].name
             let currentFiles = this.files
-            console.log("current file arr: ", currentFiles)
-            console.log("new file: ", thisFile)
-
-            currentFiles.push(thisFile)  
-            this.files = currentFiles;
+            let newFiles = e.dataTransfer.files
+ 
+            this.files = newFiles;
             console.log("new file arr: ", this.files)
         }
     }
 
-    handleUpload = () => {
-        console.log(this.files)
-        if (this.state.dragging == false && this.files.length > 0){
-            this.props.altgen(this.files)
-        }
+    onDragOver = (e) => {
+        e.preventDefault() // need to prevent default for this event but this event listener is not necessary for functionality
+        e.stopPropagation()
     }
+
+    // handleUpload = () => {
+    //     console.log("SENDING// input.js --> app.js: ", this.files)
+    //     if (this.state.dragging == false && this.files.length > 0){
+    //         this.props.altgen(this.files) 
+    //     }
+    // }
 
     render(){
         return(
         <div className="input-panel-container">
-            <div id="form">
-                <div id="input" onDragEnter={this.onDragEnter} onDragLeave={this.onDragLeave} onDragOver={this.onDragOver} onDrop={this.onDrop}>
-                    <p>Choose files <span>or drag to upload</span></p>
-                </div>
-            </div>
-            <button id="upload-btn" type="submit" onClick={this.handleUpload}>Upload</button>
+            <form id="form" action="/api/upload-image" enctype="multipart/form-data" method="POST">
+                <input id="input" type="file" accept="image/*" name="photo"/>
+                <input id="upload-btn" type="submit" value="upload" />
+                {/* <input id="upload-btn" type="submit" value="upload" onClick={this.handleUpload} /> */}
+            </form>
         </div>
         )
     }
