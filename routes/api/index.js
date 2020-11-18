@@ -1,54 +1,61 @@
 const router = require("express").Router();
 const path = require("path")
 const vision = require('@google-cloud/vision');
-
-const multer = require('multer');
-const upload = multer({dest: __dirname + '/uploads'});
-
-const fileUpload = require('express-fileupload');
 const formidable = require('formidable');
-var fs = require('fs');
-
 require('dotenv').config()
-
-
 // REF DOC FOR GOOGLE VISION API: https://googleapis.dev/nodejs/vision/1.8.0/module-@google-cloud_vision.html
 
 router.post('/upload-image', function(req, res) {
 
-  console.log("api routing / upload-image route hit")
+  let filenames = [];   let altarr = []; let detections = []; let counter = 0;
 
   // FORMIDABLE: new form instance
-  const form = new formidable.IncomingForm()
-
+  const form = formidable({ multiples: true });
   form.parse(req)
 
-  form.on("fileBegin", (name, file) => {
-      file.path = __dirname + '/uploads/' + file.name
-      console.log("fileBegin file path: " + file.path)
-  })
+  let callVision = async (filename) => {
+    let detect;
 
-  form.on("file", (name, file) => {
-      fileName = file.name; console.log("uploaded file: " + file.name)
+    let getDetection = new Promise((detectdata) => {
 
-      // GOOGLE VISION API: text detection instance
       const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
-      // const client = new vision.ImageAnnotatorClient({ client_email: process.env.CLIENT_EMAIL, private_key: process.env.VISION_API_KEY_JSON.PRIVATE_KEY});
 
-      // Performs label detection on the image file
-      client.textDetection('routes/api/uploads/' + file.name)
+      client.textDetection('routes/api/uploads/' + filename)
       .then(results => {
-        const detections = results[0].textAnnotations;
-        console.log('Text:');
-        detections.forEach(text => console.log(text));
+
+        let newdetect = [filename, results]
+        counter++;
+        detectdata(newdetect)
+
+        // let detectsAlt = results[0].textAnnotations[0].description; console.log("ALT DETECTED: " + detectsAlt)
       })
       .catch(err => {
         console.error("ERROR: ", err)
       })
+    })
 
-      res.send("fileName: " + file.name)
+    detect = await getDetection
+    detections.push(detect)
+
+    if (counter == filenames.length){
+      res.json({"detections" : detections})
+    }
+  }
+
+  // FORMIDABLE: fileupload begin
+  form.on("fileBegin", (name, file) => {
+      file.path = __dirname + '/uploads/' + file.name
   })
 
+  // FORMIDABLE: instance of file
+  form.on("file", (name, file) => {
+    filenames.push(file.name); console.log("UPLOADING FILE: " + file.name);
+    callVision(file.name)
+  })
+
+  form.on('end', () => {
+    console.log('!!!!FORM HANDLING DONE!!!!!');
+  });
 });
 
 router.use((req, res) => {

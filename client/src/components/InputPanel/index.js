@@ -62,9 +62,10 @@ class InputPanel extends Component {
     render(){
         return(
         <div className="input-panel-container">
-            <form id="form" action="/api/upload-image" enctype="multipart/form-data" method="POST">
-                <input id="input" type="file" accept="image/*" name="photo"/>
-                <input id="upload-btn" type="submit" value="upload" />
+            {/* <form id="form" enctype="multipart/form-data" method="POST"> */}
+            <form id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
+                <input id="input" type="file" accept="image/*" name="photo" multiple="multiple"/>
+                <input id="upload-btn" type="submit" value="Upload" />
                 {/* <input id="upload-btn" type="submit" value="upload" onClick={this.handleUpload} /> */}
             </form>
         </div>
