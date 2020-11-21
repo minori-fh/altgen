@@ -1,29 +1,55 @@
-.input-panel-container {
-    width: 50%;
-    max-width: 50%;
-    height: 100%;
+#input-panel-container {
+    width: 350px;
+    max-width: 350px;
+    height: 350px;
     text-align: center;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 7px;
+    padding: 15px;
 }
 
-#form {
-    width: 500px;
-    height: 600px;
+#form, #input {
+    font-family: 'Roboto Mono', monospace !important;
+    width: 100%;
+    height: 100%;
 }
-  
-#input {
-    width: 500px;
-    height: 600px;
-    border: solid black 1px;
-}
-
   
 #upload-btn {
-    width: 200px;
-    height: 30px;
-    margin-top: 15px;
+    /* 15px is for padding */
+    margin-top: calc(15px + 20px); 
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    border: 2px solid #6c5ce7;
+    padding: .2em .4em;
+    border-radius: .2em;
+    background-color: #a29bfe;
+    transition: 1s;
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+input[type=file]::file-selector-button {
+    border: 2px solid #6c5ce7;
+    padding: .2em .4em;
+    border-radius: .2em;
+    background-color: #a29bfe;
+    transition: 1s;
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+input[type=file]::-webkit-file-upload-button:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+    font-family: 'Roboto Mono', monospace !important;
 }

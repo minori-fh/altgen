@@ -4,10 +4,11 @@ const vision = require('@google-cloud/vision');
 const formidable = require('formidable');
 require('dotenv').config()
 // REF DOC FOR GOOGLE VISION API: https://googleapis.dev/nodejs/vision/1.8.0/module-@google-cloud_vision.html
+// https://cloud.google.com/vision/docs/features-list
 
 router.post('/upload-image', function(req, res) {
 
-  let filenames = [];   let altarr = []; let detections = []; let counter = 0;
+  let filenames = [];   let altarr = []; let detections = {}; let counter = 0;
 
   // FORMIDABLE: new form instance
   const form = formidable({ multiples: true });
@@ -35,7 +36,8 @@ router.post('/upload-image', function(req, res) {
     })
 
     detect = await getDetection
-    detections.push(detect)
+    let key = detect[0]; let value = detect[1]
+    detections[key] = value;
 
     if (counter == filenames.length){
       res.json({"detections" : detections})
