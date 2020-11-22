@@ -12,10 +12,23 @@
     padding: 15px;
 }
 
+#input-menubar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+select {
+    font-family: 'Roboto Mono', monospace !important;  
+}
+
+
 #form, #input {
     font-family: 'Roboto Mono', monospace !important;
-    width: 100%;
-    height: 100%;
+    width: 350px;
+    max-width: 350px;
+    height: 350px;
 }
   
 #upload-btn {

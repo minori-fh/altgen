@@ -9,8 +9,7 @@ class InputPanel extends Component {
 
     constructor(props){
         super(props)
-        this.files = []
-        this.dragCounter = 0
+        this.detectType = "text" // not part of state since we do not want refresh
         this.state = {
             files: null,
         }
@@ -87,12 +86,14 @@ class InputPanel extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("HANDLESUBMIT")
+        console.log("HANDLESUBMIT; detectType: ", this.detectType)
 
-        let files = this.state.files
-        let formdata = new FormData()
+        // create FormData
+        let formdata = new FormData();
+        let files = this.state.files; let detectType = this.detectType;
 
-        Array.from(files).forEach((file) => {formdata.append("file", file)})
+        formdata.append("field", detectType) // append detectType to formdata
+        Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
 
         axios({
             url: '/api/upload-image',
@@ -102,8 +103,8 @@ class InputPanel extends Component {
             },
             data: formdata
         }).then((res) => {
-            console.log(res.data.detections)
-            this.props.sendDetect(res.data.detections)
+            console.log(res.data.detectionsRaw)
+            this.props.sendDetect(res.data.detectionsRaw)
         })
 
     }
@@ -113,9 +114,24 @@ class InputPanel extends Component {
         this.setState({files: event.target.files})
     }
 
+    setDetectType = (event) => {
+        console.log("DETECT TYPE CHOSEN: "  + event.target.value)
+        this.detectType = event.target.value
+    }
+
     render(){
         return(
         <div id="input-panel-container">
+            {/* <div id="input-menubar">
+                <select onChange={this.setDetectType}>
+                    <option value="text">text</option>
+                    <option value="label">label</option>
+                    <option value="logo">logo</option>
+                    <option value="landmark">landmark</option>
+                    <option value="face">face</option>
+                </select>
+            </div> */}
+
             {/* <form id="form" action="/api/upload-image" enctype="multipart/form-data" method="post"
                                             onDrop={this.onDrop} 
                                             onDragOver={this.onDragOver} 
@@ -123,6 +139,12 @@ class InputPanel extends Component {
                                             onDragLeave={this.onDragLeave} 
             > */}
             <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
+            <select type="field" name="detectType" onChange={this.setDetectType}>
+                    <option value="text">text recognition</option>
+                    <option value="imageprop">image properties</option>
+                    <option value="objectlocalize">object localization</option>
+                </select>
+
                 <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
                 <input id="upload-btn" class="btn" type="submit" value="upload" />
             </form>

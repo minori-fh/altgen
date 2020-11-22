@@ -13,9 +13,9 @@ class App extends Component {
     }
   }
 
-  handleDetect = (detections) => {
-    console.log("DETECTIONS AT APP.JS LEVEL " + detections)
-    this.setState({detects: JSON.stringify(detections)})
+  handleDetect = (detectionsRaw) => {
+    console.log("DETECTIONS AT APP.JS LEVEL " + detectionsRaw)
+    this.setState({detects: JSON.stringify(detectionsRaw)})
   }
 
   render(){
