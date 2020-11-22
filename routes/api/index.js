@@ -8,14 +8,13 @@ require('dotenv').config()
 
 router.post('/upload-image', function(req, res) {
 
-  let detectType; let filenames = []; let detections = {}; let counter = 0;
-
   // FORMIDABLE: new form instance
   const form = formidable({ multiples: true });
   form.parse(req)
 
+  let detectType; let filenames = []; let detections = {}; let counter = 0;
+
   let callVision = async (filename) => {
-  let detect;
 
     // TEXT DETECTION PROMISE
     let getTextDetect = new Promise((detectdata) => {
@@ -41,7 +40,23 @@ router.post('/upload-image', function(req, res) {
 
     // IMAGE PROPERTY DETECTION PROMISE
     let getImagePropDetect = new Promise((detectdata) => {
-      detectdata
+      const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+
+      client.imageProperties('routes/api/uploads/' + filename)
+      .then(results => {
+
+        let focusDetect = results[0].imagePropertiesAnnotation.dominantColors.colors;
+        let rawDetect = results[0].imagePropertiesAnnotation
+
+        let newdetect = [filename, focusDetect, rawDetect]
+
+        counter++;
+        console.log(newdetect)
+        detectdata(newdetect)
+      })
+      .catch(err => {
+        console.error("ERROR: ", err)
+      })
     })
 
   
@@ -50,22 +65,32 @@ router.post('/upload-image', function(req, res) {
       detectdata
     })
 
-    // FORMAT RESPONSE
-    if (detectType == "text"){ 
-      detect = await getTextDetect; 
-      let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-      detections[key] = {"focused":focused, "raw":raw} 
+        // CALL DETECTION PROMISE
+        let detect;
 
-    } else if (detectType == "imageprop"){
-
-    } else if (detectType == "objectlocal"){
-
-    }
-
-    // SEND RESPONSE
-    if (counter == filenames.length){
-      res.json({"detectionsRaw" : detections})
-    }
+        if (detectType == "text"){ 
+          detect = await getTextDetect; 
+          let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+          detections[key] = {"focused":focused, "raw":raw} 
+    
+                  // SEND RESPONSE
+                  if (counter == filenames.length){
+                    res.json({"detectionsRaw" : detections})
+                  }
+    
+        } else if (detectType == "imageprop"){
+          detect = await getImagePropDetect; 
+          let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+          detections[key] = {"focused":focused, "raw":raw} 
+    
+                  // SEND RESPONSE
+                  if (counter == filenames.length){
+                    res.json({"detectionsRaw" : detections})
+                  }
+    
+        } else if (detectType == "objectlocal"){
+    
+        }
   }
 
   // FORMIDABLE: fileupload begin
