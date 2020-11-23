@@ -9,20 +9,22 @@ class App extends Component {
   constructor(props){
     super()
     this.state = {
+      filenames: [],
       detects: null,
+      renderOutput: false
     }
   }
 
-  handleDetect = (detectionsRaw) => {
-    console.log("DETECTIONS AT APP.JS LEVEL " + detectionsRaw)
-    this.setState({detects: JSON.stringify(detectionsRaw)})
+  handleDetect = (filenames, detections) => {
+    // console.log("// DETECTIONS AT CLIENT: " + detections + " FILENAMES: " + filenames)
+    this.setState({filenames: filenames, detects: detections, renderOutput: true})
   }
 
   render(){
     return(
       <div id="main-container">
         <InputPanel sendDetect={this.handleDetect}/>
-        <OutputPanel visiondetects={this.state.detects}/>
+        <OutputPanel filenames={this.state.filenames} visiondetects={this.state.detects} renderOutput={this.state.renderOutput}/>
       </div>
     )
   }

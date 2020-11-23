@@ -103,8 +103,8 @@ class InputPanel extends Component {
             },
             data: formdata
         }).then((res) => {
-            console.log(res.data.detectionsRaw)
-            this.props.sendDetect(res.data.detectionsRaw)
+            console.log("RESPONSE IN CLIENT: " + res.data.detections)
+            this.props.sendDetect(res.data.filenames, res.data.detections)
         })
 
     }
