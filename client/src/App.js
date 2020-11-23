@@ -10,21 +10,34 @@ class App extends Component {
     super()
     this.state = {
       filenames: [],
-      detects: null,
-      renderOutput: false
+      detectRaw: null,
+      detectFormat: null,
+      renderOutput: false,
     }
   }
 
   handleDetect = (filenames, detections) => {
-    // console.log("// DETECTIONS AT CLIENT: " + detections + " FILENAMES: " + filenames)
-    this.setState({filenames: filenames, detects: detections, renderOutput: true})
+
+    let detects = detections; console.log("APP JS LEVEL: " + filenames); console.log("APP JS LEVEL: " + detections)
+
+    let files = Object.keys(detects)
+    let detectRaw = {}
+    let detectFormat = {}
+
+    files.forEach((file) => {
+        let detect = detects[file]
+        detectRaw[file] = detect.raw
+        detectFormat[file] = detect.focused
+    })
+
+    this.setState({filenames: filenames, detectRaw: detectRaw, detectFormat: detectFormat, renderOutput: true})
   }
 
   render(){
     return(
       <div id="main-container">
         <InputPanel sendDetect={this.handleDetect}/>
-        <OutputPanel filenames={this.state.filenames} visiondetects={this.state.detects} renderOutput={this.state.renderOutput}/>
+        <OutputPanel filenames={this.state.filenames} detectRaw={this.state.detectRaw} detectFormat={this.state.detectFormat} renderOutput={this.state.renderOutput}/>
       </div>
     )
   }

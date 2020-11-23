@@ -13,7 +13,7 @@ router.post('/upload-image', function(req, res) {
   const form = formidable({ multiples: true });
   form.parse(req)
 
-  let detectType; let filenames = []; let detections = {}; let counter = 0;
+  let detectType; let filenames = []; let detections = {}; let counter = 0; let detect = []; 
 
   let callVisionText = async (filename) => {
     let getTextDetect = new Promise((detectdata) => {

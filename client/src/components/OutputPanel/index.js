@@ -1,39 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './style.css';
 
-function OutputPanel(props){
 
-    let output = "";
-    let detects = props.visiondetects; console.log("IN OUTPUT COMP: " + output)
-    let filenames = props.filenames; console.log("IN OUTPUT COMP: " + filenames)
+class OutputPanel extends Component {
 
-    if (props.renderOutput == true){
-        console.log("!!!!!!CREATING OUTPUT!!!!!!")
-        console.log(Object.keys(detects))
-
-        let display = {}
-
-        let files = Object.keys(detects)
-
-        files.forEach((file) => {
-            let detect = detects[file]
-            let finalDetect = detect.focused
-
-            display[file] = finalDetect
-        })
-
-        output = JSON.stringify(display);    
+    constructor(props){
+        super()
+        this.state = {
+            format: "focus",
+        }
+    }
+    
+    setFormat = (event) => {
+        console.log("format chosen: " + event.target.value)
+        this.setState({format: event.target.value})
     }
 
-    return(        
-        <div id="output-panel-container">
-            <div id="output-menubar">
-                <div className="output-view">focused</div>
-                <div className="output-view">raw</div>
+    render(){
+
+        let output; 
+
+        if (this.state.format == "focus"){
+            output = JSON.stringify(this.props.detectFormat)
+        } else if (this.state.format == "raw"){
+            output = JSON.stringify(this.props.detectRaw)
+        }
+
+        return(        
+            <div id="output-panel-container">
+                <div id="output-menubar">
+                    <button onClick={this.setFormat} value="focus">focused</button>
+                    <button onClick={this.setFormat} value="raw">raw</button>
+                </div>
+                <div id="codebox">{output}</div>
             </div>
-            <div id="codebox">{output}</div>
-        </div>
-    )
+        )
+    }
 }
 
 export default OutputPanel;

@@ -86,7 +86,7 @@ class InputPanel extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("HANDLESUBMIT; detectType: ", this.detectType)
+        console.log("HANDLESUBMIT detectType: ", this.detectType)
 
         // create FormData
         let formdata = new FormData();
