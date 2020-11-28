@@ -1,62 +1,64 @@
 import React, { Component } from 'react';
 import './style.css';
 
+import PhotoView from '../PhotoView'
+
 class OutputPanel extends Component {
 
     constructor(props){
         super()
         this.state = {
             format: "focus",
+            view: "json"
         }
     }
     
     setFormat = (event) => {
-        console.log("format chosen: " + event.target.value)
+        console.log("SETTING STATE format: " + event.target.value)
         this.setState({format: event.target.value})
     }
 
-    renderCode = () => {
-
-        let output = this.props.detectFocus
-
-        Object.entries(output).map(([key, val], index) => {
-            return(
-                <div>
-                    key: {key}
-                    value: {val}
-                </div>
-            )
-        })
+    setView = (event) => {
+        console.log("SETTING STATE view: " + event.target.value)
+        this.setState({view: event.target.value})
     }
 
     render(){
 
-        console.log("OUTPUT RENDER: " + this.props.renderOutput)
-        let output; let files; let element; let values;
+        console.log("PASSING PROP outputrender: " + this.props.renderOutput)
+        let output; 
 
         if (this.props.renderOutput) {
 
-            if (this.state.format == "focus"){
-                
-                output = JSON.stringify(this.props.detectFocus, null, 2)
-                console.log("output: " + JSON.stringify(output))
+            if (this.state.view == "json"){
 
-            } else if (this.state.format == "raw"){
-                output = JSON.stringify(this.props.detectRaw, null, 2)
-                console.log("output: " + JSON.stringify(output))
+                if (this.state.format == "focus"){
+                    output = JSON.stringify(this.props.detectFocus, null, 2)
+                } else if (this.state.format == "raw"){
+                    output = JSON.stringify(this.props.detectRaw, null, 2)
+                }
+
+            } else if (this.state.view == "photo"){
+                output = <PhotoView />
             }
         }
 
         return(        
             <div id="output-panel-container">
+                <div id="view-menubar">
+                    <button class="btn-view" onClick={this.setView} value="photo">PHOTO</button>
+                    <button class="btn-view" onClick={this.setView} value="json">JSON</button>
+                </div>
 
                 <div id="output-menubar">
-                    <button onClick={this.setFormat} value="focus">alt tag</button>
-                    <button onClick={this.setFormat} value="raw">raw detection</button>
+                    <button class="btn-jsonview" onClick={this.setFormat} value="focus">alt tag</button>
+                    <button class="btn-jsonview" onClick={this.setFormat} value="raw">raw</button>
                 </div>
         
                 <div class ="codebox">
                     {this.props.renderOutput ? 
+
+                        
                         
                         <pre>{output}</pre>
 

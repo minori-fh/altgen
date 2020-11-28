@@ -131,7 +131,6 @@ class InputPanel extends Component {
                 <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
                 <input id="upload-btn" class="btn" type="submit" value="upload" />
             </form>
-            {/* <input id="upload-btn" type="submit" value="DRAG UPLOAD" onClick={this.handleUpload} /> */}
         </div>
         )
     }
