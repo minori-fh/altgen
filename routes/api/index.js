@@ -23,8 +23,8 @@ router.post('/upload-image', function(req, res) {
       client.textDetection('routes/api/uploads/' + filename)
       .then(results => {
         
-        let focusDetect = results[0].textAnnotations[0].description;
         let rawDetect = results[0].textAnnotations
+        let focusDetect = results[0].textAnnotations[0].description;
 
         let newdetect = [filename, focusDetect, rawDetect]
 

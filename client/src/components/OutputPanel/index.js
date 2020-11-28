@@ -37,6 +37,7 @@ class OutputPanel extends Component {
         if (this.props.renderOutput) {
 
             if (this.state.format == "focus"){
+                
                 output = JSON.stringify(this.props.detectFocus, null, 2)
                 console.log("output: " + JSON.stringify(output))
 

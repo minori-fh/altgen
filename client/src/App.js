@@ -29,15 +29,14 @@ class App extends Component {
     filenames.map((file, index) => {
       // add to detectRaw object
       detectRaw[file] = detections[file].raw
-      // console.log(file + " : " + detections[file].raw)
 
-      // add to detectFormat object
-      detectFocus[file] = detections[file].focused
+      // add to detectFocus object
+      let rawstr = detections[file].focused; 
+      let altstr = rawstr.replace(/\n/g, " ");
+
+      detectFocus[file] = altstr;
       console.log(file + " : " + detections[file].focused)
     })
-
-    console.log("DETECT_RAW STATE SET: ///// " + detectRaw)
-    console.log("DETECT_FOCUS STATE SET: ///// " + detectFocus)
 
     this.setState({filenames: filenames, detectRaw: detectRaw, detectFocus: detectFocus, renderOutput: true})
   }
