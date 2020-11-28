@@ -44,67 +44,68 @@ router.post('/upload-image', function(req, res) {
     checkCompletion()
   }
 
-  let callVisionImage = async (filename) => {
-    let getImagePropDetect = new Promise((detectdata) => {
-      const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+  // let callVisionImage = async (filename) => {
+  //   let getImagePropDetect = new Promise((detectdata) => {
+  //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
 
-      client.imageProperties('routes/api/uploads/' + filename)
-      .then(results => {
+  //     client.imageProperties('routes/api/uploads/' + filename)
+  //     .then(results => {
 
-        let focusDetect = results[0].imagePropertiesAnnotation.dominantColors.colors;
-        let rawDetect = results[0].imagePropertiesAnnotation
+  //       let focusDetect = results[0].imagePropertiesAnnotation.dominantColors.colors;
+  //       let rawDetect = results[0].imagePropertiesAnnotation
 
-        let newdetect = [filename, focusDetect, rawDetect]
+  //       let newdetect = [filename, focusDetect, rawDetect]
 
-        counter++;
-        console.log(newdetect)
-        console.log("COUNTER IMG: " +  counter)
-        detectdata(newdetect)
-      })
-      .catch(err => {
-        console.error("ERROR: ", err)
-      })
-    })
+  //       counter++;
+  //       console.log(newdetect)
+  //       console.log("COUNTER IMG: " +  counter)
+  //       detectdata(newdetect)
+  //     })
+  //     .catch(err => {
+  //       console.error("ERROR: ", err)
+  //     })
+  //   })
 
-    detect = await getImagePropDetect
-    let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-    detections[key] = {"focused":focused, "raw": raw} 
-    checkCompletion()
-  }
+  //   detect = await getImagePropDetect
+  //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+  //   detections[key] = {"focused":focused, "raw": raw} 
+  //   checkCompletion()
+  // }
 
-  let callVisionObject = async (filename) => {
-    let getObjectLocalizeDetect = new Promise((detectdata) => {
+  // let callVisionObject = async (filename) => {
+  //   let getObjectLocalizeDetect = new Promise((detectdata) => {
 
-      const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
-      const request = {
-        image: {content: fs.readFileSync('routes/api/uploads/' + filename)},
-      };
+  //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+  //     const request = {
+  //       image: {content: fs.readFileSync('routes/api/uploads/' + filename)},
+  //     };
 
-      client.objectLocalization(request)
-      .then(results => {
+  //     client.objectLocalization(request)
+  //     .then(results => {
 
-        let focusDetect = results[0].localizedObjectAnnotations;
-        let rawDetect = " "
+  //       let focusDetect = results[0].localizedObjectAnnotations;
+  //       let rawDetect = " "
 
-        let newdetect = [filename, focusDetect, rawDetect]
+  //       let newdetect = [filename, focusDetect, rawDetect]
 
-        counter++;
-        console.log(newdetect)
-        console.log("COUNTER OBJ: " +  counter)
-        detectdata(newdetect)
-      })
-      .catch(err => {
-        console.error("ERROR: ", err)
-      })
-    })
+  //       counter++;
+  //       console.log(newdetect)
+  //       console.log("COUNTER OBJ: " +  counter)
+  //       detectdata(newdetect)
+  //     })
+  //     .catch(err => {
+  //       console.error("ERROR: ", err)
+  //     })
+  //   })
 
-    detect = await getObjectLocalizeDetect
-    let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-    detections[key] = {"focused" : focused, "raw" : raw} 
-    checkCompletion()
-  }
+  //   detect = await getObjectLocalizeDetect
+  //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+  //   detections[key] = {"focused" : focused, "raw" : raw} 
+  //   checkCompletion()
+  // }
 
   // RESPONSE: send response after detections for all files are complete
+  
   let checkCompletion = () => {
     if (counter == filenames.length){
       console.log("sending this to client: " + filenames)
