@@ -103,8 +103,7 @@ class InputPanel extends Component {
             },
             data: formdata
         }).then((res) => {
-            console.log("RESPONSE IN CLIENT: " + res.data.detections)
-            this.props.sendDetect(res.data.filenames, res.data.detections)
+            this.props.sendDetect(res.data)
         })
 
     }
@@ -122,28 +121,12 @@ class InputPanel extends Component {
     render(){
         return(
         <div id="input-panel-container">
-            {/* <div id="input-menubar">
-                <select onChange={this.setDetectType}>
-                    <option value="text">text</option>
-                    <option value="label">label</option>
-                    <option value="logo">logo</option>
-                    <option value="landmark">landmark</option>
-                    <option value="face">face</option>
-                </select>
-            </div> */}
-
-            {/* <form id="form" action="/api/upload-image" enctype="multipart/form-data" method="post"
-                                            onDrop={this.onDrop} 
-                                            onDragOver={this.onDragOver} 
-                                            onDragEnter={this.onDragEnter} 
-                                            onDragLeave={this.onDragLeave} 
-            > */}
             <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
-            <select type="field" name="detectType" onChange={this.setDetectType}>
+            {/* <select type="field" name="detectType" onChange={this.setDetectType}>
                     <option value="text">text recognition</option>
                     <option value="imageprop">image properties</option>
                     <option value="objectlocalize">object localization</option>
-                </select>
+                </select> */}
 
                 <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
                 <input id="upload-btn" class="btn" type="submit" value="upload" />

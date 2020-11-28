@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.2.0",
     "axios": "^0.21.0",
     "form-data": "^3.0.0",
+    "pretty-format": "^26.6.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",

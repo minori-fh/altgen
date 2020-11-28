@@ -11,33 +11,42 @@ class App extends Component {
     this.state = {
       filenames: [],
       detectRaw: null,
-      detectFormat: null,
+      detectFocus: null,
       renderOutput: false,
     }
   }
 
-  handleDetect = (filenames, detections) => {
+  handleDetect = (res) => {
+    let filenames = res.filenames
+    let detections = res.detections
 
-    let detects = detections; console.log("APP JS LEVEL: " + filenames); console.log("APP JS LEVEL: " + detections)
+    console.log(filenames + " reached at APP JS LEVEL");
 
-    let files = Object.keys(detects)
+    // for each uploaded file
     let detectRaw = {}
-    let detectFormat = {}
+    let detectFocus = {}
 
-    files.forEach((file) => {
-        let detect = detects[file]
-        detectRaw[file] = detect.raw
-        detectFormat[file] = detect.focused
+    filenames.map((file, index) => {
+      // add to detectRaw object
+      detectRaw[file] = detections[file].raw
+      // console.log(file + " : " + detections[file].raw)
+
+      // add to detectFormat object
+      detectFocus[file] = detections[file].focused
+      console.log(file + " : " + detections[file].focused)
     })
 
-    this.setState({filenames: filenames, detectRaw: detectRaw, detectFormat: detectFormat, renderOutput: true})
+    console.log("DETECT_RAW STATE SET: ///// " + detectRaw)
+    console.log("DETECT_FOCUS STATE SET: ///// " + detectFocus)
+
+    this.setState({filenames: filenames, detectRaw: detectRaw, detectFocus: detectFocus, renderOutput: true})
   }
 
   render(){
     return(
       <div id="main-container">
         <InputPanel sendDetect={this.handleDetect}/>
-        <OutputPanel filenames={this.state.filenames} detectRaw={this.state.detectRaw} detectFormat={this.state.detectFormat} renderOutput={this.state.renderOutput}/>
+        <OutputPanel filenames={this.state.filenames} detectRaw={this.state.detectRaw} detectFocus={this.state.detectFocus} renderOutput={this.state.renderOutput}/>
       </div>
     )
   }
