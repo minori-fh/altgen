@@ -39,7 +39,8 @@ class OutputPanel extends Component {
                 }
 
             } else if (this.state.view == "photo"){
-                output = <PhotoView />
+                console.log("HELLO?! " + this.props.detectFocus)
+                output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
             }
         }
 

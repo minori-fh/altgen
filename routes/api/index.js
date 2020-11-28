@@ -20,7 +20,7 @@ router.post('/upload-image', function(req, res) {
 
       const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
 
-      client.textDetection('routes/api/uploads/' + filename)
+      client.textDetection('uploads/images' + filename)
       .then(results => {
         
         let rawDetect = results[0].textAnnotations
@@ -114,7 +114,7 @@ router.post('/upload-image', function(req, res) {
 
   // FORMIDABLE: fileupload begin
   form.on("fileBegin", (name, file) => {
-      file.path = __dirname + '/uploads/' + file.name
+      file.path = 'uploads/images' + file.name
   })
 
   // FORMIDABLE: instance of file
