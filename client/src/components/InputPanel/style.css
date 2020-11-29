@@ -1,39 +1,40 @@
 #input-panel-container {
-    width: 350px;
-    max-width: 350px;
-    height: 350px;
+    width: 88%;
+    max-width: 88%;
+    height: 50px;
     text-align: center;
-    background-color: white;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-radius: 7px;
-    padding: 15px;
-}
-
-#input-menubar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
 }
 
 select {
     font-family: 'Roboto Mono', monospace !important;  
 }
 
-
-#form, #input {
-    font-family: 'Roboto Mono', monospace !important;
+#form {
+    background-color: white;
+    border-radius: 7px;
     width: 350px;
     max-width: 350px;
-    height: 350px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto Mono', monospace !important;
+    padding: 15px;
 }
+
+#input {
+    font-family: 'Roboto Mono', monospace !important;
+}
+
   
 #upload-btn {
     /* 15px is for padding */
-    margin-top: calc(15px + 20px); 
+    /* margin-top: calc(10px + 5px);  */
     font-family: 'Roboto Mono', monospace !important;
 }
 

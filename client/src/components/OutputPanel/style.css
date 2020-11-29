@@ -1,7 +1,7 @@
 #output-panel-container {
-    width: 40%;
+    width: 88%;
+    max-width: 88%;
     height: 80%;
-    max-width: 40%;
     background-color: white;
     border-radius: 7px;
     padding: 15px;

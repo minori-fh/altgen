@@ -22,16 +22,14 @@ class OutputPanel extends Component {
         console.log("SETTING STATE view: " + event.target.value)
         this.setState({view: event.target.value})
     }
-
+ 
     render(){
 
         console.log("PASSING PROP outputrender: " + this.props.renderOutput)
         let output; 
 
         if (this.props.renderOutput) {
-
             if (this.state.view == "json"){
-
                 if (this.state.format == "focus"){
                     output = JSON.stringify(this.props.detectFocus, null, 2)
                 } else if (this.state.format == "raw"){
@@ -39,7 +37,6 @@ class OutputPanel extends Component {
                 }
 
             } else if (this.state.view == "photo"){
-                console.log("HELLO?! " + this.props.detectFocus)
                 output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
             }
         }
@@ -58,13 +55,8 @@ class OutputPanel extends Component {
         
                 <div class ="codebox">
                     {this.props.renderOutput ? 
-
-                        
-                        
                         <pre>{output}</pre>
-
                         :
-
                         <p>no data detected</p>
                     }
                 </div>

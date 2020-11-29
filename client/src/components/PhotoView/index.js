@@ -14,15 +14,17 @@ function PhotoView(props){
         console.log(file, urls[file], alt[file])
 
         return(
-        <div>
+        <div className="jumbo-wrapper">
             <img className="img-jumbo" src={urls[file]}/>
             <div>{file}</div>
-            <div>{alt[file]}</div>
+            {/* <div>{alt[file]}</div> */}
         </div>)
     })
 
     return(
-        <div>{jumbotron}</div>
+        <div id="photoview-container">
+            {jumbotron}
+        </div>
     )
 }
 
