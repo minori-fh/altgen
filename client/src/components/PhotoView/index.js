@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.css';
 
+import CopyBtn from '../CopyBtn';
+
 function PhotoView(props){
 
     let filenames = props.filenames; let urls = props.urls; let alt = props.detectFocus;
@@ -17,6 +19,7 @@ function PhotoView(props){
         <div className="jumbo-wrapper">
             <img className="img-jumbo" src={urls[file]}/>
             <div>{file}</div>
+            <CopyBtn />
             {/* <div>{alt[file]}</div> */}
         </div>)
     })

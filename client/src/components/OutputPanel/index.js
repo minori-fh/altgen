@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.css';
 
 import PhotoView from '../PhotoView'
+import CopyBtn from '../CopyBtn'
 
 class OutputPanel extends Component {
 
@@ -12,34 +13,57 @@ class OutputPanel extends Component {
             view: "json"
         }
     }
-    
-    setFormat = (event) => {
-        console.log("SETTING STATE format: " + event.target.value)
-        this.setState({format: event.target.value})
-    }
 
     setView = (event) => {
         console.log("SETTING STATE view: " + event.target.value)
         this.setState({view: event.target.value})
     }
+
+    setFormat = (event) => {
+        console.log("SETTING STATE format: " + event.target.value)
+        this.setState({format: event.target.value})
+    }
+
+    copyToClipboard = () => {
+        console.log("copy to clipboard event handler fired")
+
+        let value;
+
+        if (this.state.view == "json"){
+            if (this.state.format == "focus"){
+                value = JSON.stringify(this.props.detectFocus, null, 2)
+            }
+        } 
+    }
  
     render(){
 
         console.log("PASSING PROP outputrender: " + this.props.renderOutput)
-        let output; 
+        let output; let code;
 
         if (this.props.renderOutput) {
             if (this.state.view == "json"){
-                if (this.state.format == "focus"){
-                    output = JSON.stringify(this.props.detectFocus, null, 2)
+                if (this.state.format == "focus"){ 
+                    code = JSON.stringify(this.props.detectFocus, null, 2) 
+                    output = 
+                    <div>
+                        <div>{code}</div>
+                        <CopyBtn text={code}/>
+                    </div>
                 } else if (this.state.format == "raw"){
-                    output = JSON.stringify(this.props.detectRaw, null, 2)
+                    code = JSON.stringify(this.props.detectRaw, null, 2) 
+                    output = 
+                    <div>
+                        <div>{code}</div>
+                        <CopyBtn text={code}/>
+                    </div>
                 }
-
             } else if (this.state.view == "photo"){
                 output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
             }
         }
+
+        // copybtn = <CopyToClipboard text={code}><button>Copy to clipboard with button</button></CopyToClipboard>
 
         return(        
             <div id="output-panel-container">
@@ -55,7 +79,9 @@ class OutputPanel extends Component {
         
                 <div class ="codebox">
                     {this.props.renderOutput ? 
-                        <pre>{output}</pre>
+                        <div>
+                            <pre>{output}</pre>
+                        </div>
                         :
                         <p>no data detected</p>
                     }

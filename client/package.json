@@ -11,6 +11,7 @@
     "form-data": "^3.0.0",
     "pretty-format": "^26.6.2",
     "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
     "web-vitals": "^0.2.4"
