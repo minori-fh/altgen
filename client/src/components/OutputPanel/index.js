@@ -44,8 +44,11 @@ class OutputPanel extends Component {
 
         return(        
             <div id="output-panel-container">
+                <div className="panel-menubar">
+                <p>Alt Tags</p>
+                </div>
                 <div id="view-menubar">
-                    <button class="btn-view" onClick={this.setView} value="photo">PHOTO</button>
+                    <button class="btn-view" onClick={this.setView} value="photo">photo</button>
                     <button class="btn-view" onClick={this.setView} value="json">JSON</button>
                 </div>
 
@@ -60,7 +63,7 @@ class OutputPanel extends Component {
                             <pre>{output}</pre>
                         </div>
                         :
-                        <p>no data detected</p>
+                        <p>no alt tags detected</p>
                     }
                 </div>
             </div>

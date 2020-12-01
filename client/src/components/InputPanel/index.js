@@ -61,6 +61,9 @@ class InputPanel extends Component {
     render(){
         return(
         <div id="input-panel-container">
+            <div className="panel-menubar">
+                <p>Upload Images</p>
+            </div>
             <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
             {/* <select type="field" name="detectType" onChange={this.setDetectType}>
                     <option value="text">text recognition</option>
