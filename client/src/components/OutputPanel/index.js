@@ -63,8 +63,6 @@ class OutputPanel extends Component {
             }
         }
 
-        // copybtn = <CopyToClipboard text={code}><button>Copy to clipboard with button</button></CopyToClipboard>
-
         return(        
             <div id="output-panel-container">
                 <div id="view-menubar">
