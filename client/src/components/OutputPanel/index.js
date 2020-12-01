@@ -9,7 +9,7 @@ class OutputPanel extends Component {
     constructor(props){
         super()
         this.state = {
-            format: "focus",
+            // format: "focus",
             view: "json"
         }
     }
@@ -19,22 +19,10 @@ class OutputPanel extends Component {
         this.setState({view: event.target.value})
     }
 
-    setFormat = (event) => {
-        console.log("SETTING STATE format: " + event.target.value)
-        this.setState({format: event.target.value})
-    }
-
-    copyToClipboard = () => {
-        console.log("copy to clipboard event handler fired")
-
-        let value;
-
-        if (this.state.view == "json"){
-            if (this.state.format == "focus"){
-                value = JSON.stringify(this.props.detectFocus, null, 2)
-            }
-        } 
-    }
+    // setFormat = (event) => {
+    //     console.log("SETTING STATE format: " + event.target.value)
+    //     this.setState({format: event.target.value})
+    // }
  
     render(){
 
@@ -43,21 +31,12 @@ class OutputPanel extends Component {
 
         if (this.props.renderOutput) {
             if (this.state.view == "json"){
-                if (this.state.format == "focus"){ 
                     code = JSON.stringify(this.props.detectFocus, null, 2) 
                     output = 
                     <div>
                         <div>{code}</div>
                         <CopyBtn text={code}/>
                     </div>
-                } else if (this.state.format == "raw"){
-                    code = JSON.stringify(this.props.detectRaw, null, 2) 
-                    output = 
-                    <div>
-                        <div>{code}</div>
-                        <CopyBtn text={code}/>
-                    </div>
-                }
             } else if (this.state.view == "photo"){
                 output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
             }
@@ -70,10 +49,10 @@ class OutputPanel extends Component {
                     <button class="btn-view" onClick={this.setView} value="json">JSON</button>
                 </div>
 
-                <div id="output-menubar">
+                {/* <div id="output-menubar">
                     <button class="btn-jsonview" onClick={this.setFormat} value="focus">alt tag</button>
                     <button class="btn-jsonview" onClick={this.setFormat} value="raw">raw</button>
-                </div>
+                </div> */}
         
                 <div class ="codebox">
                     {this.props.renderOutput ? 
