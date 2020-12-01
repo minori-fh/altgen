@@ -39,7 +39,6 @@ class App extends Component {
     })
     
     console.log("DETECTFOCUS HERE: " + Object.values(detectFocus))
-
     this.setState({filenames: filenames, urls: urls, detectRaw: detectRaw, detectFocus: detectFocus, renderOutput: true})
   }
 

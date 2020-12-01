@@ -62,13 +62,17 @@
   font-size: 13px;
 }
 
+button:focus {
+  outline: none !important;
+}
+
 .btn {
   width: 100px;
   height: 25px; 
   border-radius: 7px;
   border: none;
   color: white;
-  background-color: rgb(47, 23, 156);
+  background-color: #2f179c;
 }
 
 .panel-menubar {
@@ -84,6 +88,6 @@
 .panel-menubar p{
   padding: 0px 0px 0px 20px !important; margin: 0px !important;
   font-family: 'Work Sans', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   color: rgb(47, 23, 156);
 }

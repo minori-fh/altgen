@@ -26,7 +26,7 @@ class OutputPanel extends Component {
  
     render(){
 
-        console.log("PASSING PROP outputrender: " + this.props.renderOutput)
+        console.log("outputrender: " + this.props.renderOutput)
         let output; let code;
 
         if (this.props.renderOutput) {
@@ -42,21 +42,27 @@ class OutputPanel extends Component {
             }
         }
 
+        let jsonBtnColor; let photoBtnColor;
+
+        if (this.state.view == "json") {
+            jsonBtnColor = "#2f179c"
+            photoBtnColor = "#808080"
+            console.log("is this hitting")
+        } else if (this.state.view == "photo") {
+            photoBtnColor = "#2f179c"
+            jsonBtnColor = "#808080"
+            console.log("is this hitting")
+        }
+
         return(        
             <div id="output-panel-container">
                 <div className="panel-menubar">
                 <p>Alt Tags</p>
                 </div>
                 <div id="view-menubar">
-                    <button class="btn-view" onClick={this.setView} value="photo">photo</button>
-                    <button class="btn-view" onClick={this.setView} value="json">JSON</button>
+                    <button style={{color: this.state.view == "photo"? '#2f179c': '#808080'}} class="btn-view" onClick={this.setView} value="photo">photo</button>
+                    <button style={{color: this.state.view == "json"? '#2f179c': '#808080'}} class="btn-view" onClick={this.setView} value="json">JSON</button>
                 </div>
-
-                {/* <div id="output-menubar">
-                    <button class="btn-jsonview" onClick={this.setFormat} value="focus">alt tag</button>
-                    <button class="btn-jsonview" onClick={this.setFormat} value="raw">raw</button>
-                </div> */}
-        
                 <div class ="codebox">
                     {this.props.renderOutput ? 
                         <div>
