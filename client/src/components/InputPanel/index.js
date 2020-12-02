@@ -3,7 +3,6 @@ import './style.css';
 
 const FormData = require('form-data');
 const axios = require('axios');
-const fs = require('fs');
 
 class InputPanel extends Component {
 
@@ -20,11 +19,11 @@ class InputPanel extends Component {
         event.preventDefault();
 
         if (this.state.files != null && this.state.files.length > 0){
+            console.log("uploading " + this.state.files.length + " files")
             // create FormData
             let formdata = new FormData();
-            let files = this.state.files; let detectType = this.detectType;
+            let files = this.state.files; 
 
-            formdata.append("field", detectType) // append detectType to formdata
             Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
 
             axios({
@@ -35,8 +34,10 @@ class InputPanel extends Component {
                 },
                 data: formdata
             }).then((res) => {
+                console.log("HELLO?!" + res.data.detections)
                 this.props.sendDetect(res.data, this.urls)
             })   
+
         } else {
             this.setState({error: "no files chosen"})
         }

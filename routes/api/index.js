@@ -13,7 +13,7 @@ router.post('/upload-image', function(req, res) {
   const form = formidable({ multiples: true });
   form.parse(req)
 
-  let detectType; let filenames = []; let detections = {}; let counter = 0; let detect = []; 
+  let filenames = []; let detections = {}; let counter = 0; let detect = []; 
 
   let callVisionText = async (filename) => {
     let getTextDetect = new Promise((detectdata) => {
@@ -107,6 +107,8 @@ router.post('/upload-image', function(req, res) {
   // RESPONSE: send response after detections for all files are complete
   
   let checkCompletion = () => {
+    console.log("counter: " + counter)
+    console.log("filename length: " + filenames.length)
     if (counter == filenames.length){
       console.log("sending this to client: " + filenames)
       res.json({"filenames": filenames, "detections" : detections})
@@ -121,20 +123,14 @@ router.post('/upload-image', function(req, res) {
   // FORMIDABLE: instance of file
   form.on("file", (name, file) => {
     filenames.push(file.name); console.log("UPLOADING FILE: " + file.name);
-
-    if (detectType == "text"){
-      callVisionText(file.name)
-    } else if (detectType == "imageprop"){
-      callVisionImage(file.name)
-    } else if (detectType == "objectlocalize"){
-      callVisionObject(file.name)
-    }
-  })
-
-  // FORMIDABLE: instance of field
-  form.on("field", (name, field) => {
-    console.log("FIELD DETECTED: " + name + " is " + field);
-    detectType = field
+    callVisionText(file.name)
+    // if (detectType == "text"){
+    //   callVisionText(file.name)
+    // } else if (detectType == "imageprop"){
+    //   callVisionImage(file.name)
+    // } else if (detectType == "objectlocalize"){
+    //   callVisionObject(file.name)
+    // }
   })
 
   // FORMIDABLE: fileupload end
