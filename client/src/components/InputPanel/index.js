@@ -9,17 +9,17 @@ class InputPanel extends Component {
 
     constructor(props){
         super(props)
-        this.detectType = "text" // not part of state since we do not want refresh
         this.url = {}
         this.state = {
             files: null,
+            error: "none"
         }
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        if (this.state.files.length > 0){
+        if (this.state.files != null && this.state.files.length > 0){
             // create FormData
             let formdata = new FormData();
             let files = this.state.files; let detectType = this.detectType;
@@ -38,7 +38,7 @@ class InputPanel extends Component {
                 this.props.sendDetect(res.data, this.urls)
             })   
         } else {
-
+            this.setState({error: "no files chosen"})
         }
 
     }
@@ -81,7 +81,7 @@ class InputPanel extends Component {
                 </form>
             </div>
             <div id="err-msg">
-                <p>Error: </p>
+                <p style={{color: this.state.error == "none" ? "#808080": "#bb0f09"}}>Error: {this.state.error}</p>
             </div>
         </div>
         )
