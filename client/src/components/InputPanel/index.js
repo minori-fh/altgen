@@ -11,7 +11,9 @@ class InputPanel extends Component {
         this.url = {}
         this.state = {
             files: null,
-            error: "none"
+            filenames: [],
+            uploadComplete: false,
+            error: "none",
         }
     }
 
@@ -34,12 +36,13 @@ class InputPanel extends Component {
                 },
                 data: formdata
             }).then((res) => {
-                console.log("HELLO?!" + res.data.detections)
+                console.log("RES DETECTED FOR: " + res.data.filenames)
                 this.props.sendDetect(res.data, this.urls)
+                this.setState({filenames: res.data.filenames, uploadComplete: true, error: "none"})
             })   
 
         } else {
-            this.setState({error: "no files chosen"})
+            this.setState({error: "Please choose file(s)", uploadComplete: false})
         }
 
     }
@@ -65,6 +68,17 @@ class InputPanel extends Component {
     }
 
     render(){
+
+        let uploadedfiles = this.state.filenames.map((filename) => (<p>{filename}</p>))
+
+        let msg; let color;
+
+        if (this.state.error != "none"){
+            msg = this.state.error; color = "#bb0f09"
+        } else if (this.state.uploadComplete == true){
+            msg = "Upload success"; color = "#1c7913"
+        }
+
         return(
         <div id="input-panel-container">
             <div  id="input-body-wrapper">
@@ -72,17 +86,16 @@ class InputPanel extends Component {
                     <p>Upload Images</p>
                 </div>
                 <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
-                {/* <select type="field" name="detectType" onChange={this.setDetectType}>
-                        <option value="text">text recognition</option>
-                        <option value="imageprop">image properties</option>
-                        <option value="objectlocalize">object localization</option>
-                    </select> */}
                     <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
                     <input id="upload-btn" class="btn" type="submit" value="upload" />
                 </form>
+                <div id="uploaded-files">
+                    {uploadedfiles}
+                </div>
             </div>
             <div id="err-msg">
-                <p style={{color: this.state.error == "none" ? "#808080": "#bb0f09"}}>Error: {this.state.error}</p>
+                <p style={{color: color}}>{msg}</p>
+
             </div>
         </div>
         )

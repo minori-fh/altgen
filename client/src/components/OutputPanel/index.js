@@ -9,7 +9,6 @@ class OutputPanel extends Component {
     constructor(props){
         super()
         this.state = {
-            // format: "focus",
             view: "json"
         }
     }
@@ -18,11 +17,6 @@ class OutputPanel extends Component {
         console.log("SETTING STATE view: " + event.target.value)
         this.setState({view: event.target.value})
     }
-
-    // setFormat = (event) => {
-    //     console.log("SETTING STATE format: " + event.target.value)
-    //     this.setState({format: event.target.value})
-    // }
  
     render(){
 
