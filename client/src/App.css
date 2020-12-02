@@ -69,7 +69,7 @@ button:focus {
 .btn {
   width: 100px;
   height: 25px; 
-  border-radius: 7px;
+  border-radius: .2em;
   border: none;
   color: white;
   background-color: #2f179c;

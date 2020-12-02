@@ -46,8 +46,9 @@ pre, .output-wrapper {
 
 .btn-view, .btn-jsonview {
     font-family: 'Roboto Mono', monospace !important;
-    font-size: 14px;
+    font-size: 13px;
     width: 60px;  
+    border-radius: .2em;
     border: none;
 }
 

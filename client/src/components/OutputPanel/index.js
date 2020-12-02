@@ -60,8 +60,12 @@ class OutputPanel extends Component {
                 <p>Alt Tags</p>
                 </div>
                 <div id="view-menubar">
-                    <button style={{color: this.state.view == "photo"? '#2f179c': '#808080'}} class="btn-view" onClick={this.setView} value="photo">photo</button>
-                    <button style={{color: this.state.view == "json"? '#2f179c': '#808080'}} class="btn-view" onClick={this.setView} value="json">JSON</button>
+                    <button style={{color: this.state.view == "photo"? 'white': '#808080',
+                                    backgroundColor: this.state.view == "photo"? '#2f179c': 'white',
+                                    }} class="btn-view" onClick={this.setView} value="photo">photo</button>
+                    <button style={{color: this.state.view == "json"? 'white': '#808080',
+                                    backgroundColor: this.state.view == "json"? '#2f179c': 'white',
+                                    }} class="btn-view" onClick={this.setView} value="json">JSON</button>
                 </div>
                 <div class ="codebox">
                     {this.props.renderOutput ? 

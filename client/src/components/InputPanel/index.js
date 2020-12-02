@@ -19,23 +19,28 @@ class InputPanel extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        // create FormData
-        let formdata = new FormData();
-        let files = this.state.files; let detectType = this.detectType;
+        if (this.state.files.length > 0){
+            // create FormData
+            let formdata = new FormData();
+            let files = this.state.files; let detectType = this.detectType;
 
-        formdata.append("field", detectType) // append detectType to formdata
-        Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
+            formdata.append("field", detectType) // append detectType to formdata
+            Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
 
-        axios({
-            url: '/api/upload-image',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-            data: formdata
-        }).then((res) => {
-            this.props.sendDetect(res.data, this.urls)
-        })
+            axios({
+                url: '/api/upload-image',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                data: formdata
+            }).then((res) => {
+                this.props.sendDetect(res.data, this.urls)
+            })   
+        } else {
+
+        }
+
     }
 
     onChange = (event) => {
@@ -61,19 +66,23 @@ class InputPanel extends Component {
     render(){
         return(
         <div id="input-panel-container">
-            <div className="panel-menubar">
-                <p>Upload Images</p>
+            <div  id="input-body-wrapper">
+                <div className="panel-menubar">
+                    <p>Upload Images</p>
+                </div>
+                <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
+                {/* <select type="field" name="detectType" onChange={this.setDetectType}>
+                        <option value="text">text recognition</option>
+                        <option value="imageprop">image properties</option>
+                        <option value="objectlocalize">object localization</option>
+                    </select> */}
+                    <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
+                    <input id="upload-btn" class="btn" type="submit" value="upload" />
+                </form>
             </div>
-            <form onSubmit={this.handleSubmit} id="form" action="/api/upload-image" enctype="multipart/form-data" method="post">
-            {/* <select type="field" name="detectType" onChange={this.setDetectType}>
-                    <option value="text">text recognition</option>
-                    <option value="imageprop">image properties</option>
-                    <option value="objectlocalize">object localization</option>
-                </select> */}
-
-                <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
-                <input id="upload-btn" class="btn" type="submit" value="upload" />
-            </form>
+            <div id="err-msg">
+                <p>Error: </p>
+            </div>
         </div>
         )
     }

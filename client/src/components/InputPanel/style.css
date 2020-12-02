@@ -1,14 +1,19 @@
 #input-panel-container {
-    background-color: white;
     width: 25%;
     max-width: 25%;
-    height: 400px;
+    height: 430px;
     text-align: center;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
     border-radius: 7px;
+}
+
+#input-body-wrapper{
+    background-color: white;
+    width: 100%;
+    max-width: 100%;
 
     -webkit-box-shadow: 0 10px 6px -6px #bebebe;
     -moz-box-shadow: 0 10px 6px -6px #bebebe;
@@ -34,6 +39,7 @@ select {
 
 #input {
     font-family: 'Roboto Mono', monospace !important;
+    width: 330px;
 }
 
   
@@ -41,6 +47,15 @@ select {
     /* 15px is for padding */
     /* margin-top: calc(10px + 5px);  */
     font-family: 'Roboto Mono', monospace !important;
+    align-self: flex-end;
+}
+
+#err-msg {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 30px;
 }
 
 input[type=file]::-webkit-file-upload-button {
