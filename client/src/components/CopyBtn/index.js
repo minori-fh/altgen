@@ -7,7 +7,7 @@ function CopyBtn(props){
 
     return(
         <div id="copy-btn-wrapper">
-            <CopyToClipboard text={props.text}><button>Copy to clipboard with button</button></CopyToClipboard>
+            <CopyToClipboard text={props.text}><button>copy</button></CopyToClipboard>
         </div>
     )
 }
