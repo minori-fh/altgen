@@ -55,8 +55,28 @@
   height: 100vh;
   background-color: rgb(203, 214, 233);
   display: flex; 
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  font-family: 'Roboto Mono', monospace !important;
+  font-size: 13px;
+}
+
+#intro {
+  width: 100%;
+  height: 15vh; 
+  text-align: center;
+  color: rgb(89, 73, 158);
+  padding-top: 30px;
+}
+
+#panels {
+  width: 100%;
+  height: 85vh; 
+  display: flex; 
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 30px;
   justify-content: space-evenly;
   font-family: 'Roboto Mono', monospace !important;
   font-size: 13px;

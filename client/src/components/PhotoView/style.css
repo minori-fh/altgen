@@ -8,6 +8,7 @@
     width: 33%;
     max-width: 33%;
     padding: 20px;
+    white-space: pre-wrap;
 }
 
 .img-jumbo {
