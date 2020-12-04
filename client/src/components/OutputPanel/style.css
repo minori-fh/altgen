@@ -41,7 +41,7 @@ pre, .output-wrapper {
     width: 100%;
     max-width: 100%;
     height: 100%;
-    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .btn-view, .btn-jsonview {
@@ -55,4 +55,17 @@ pre, .output-wrapper {
 .btn-jsonview {
     background-color: none;
     border: none;
+}
+
+.json-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#output-wrapper {
+    width: 100%;
+    height: 100%;
 }

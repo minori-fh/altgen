@@ -27,8 +27,8 @@ class OutputPanel extends Component {
             if (this.state.view == "json"){
                     code = JSON.stringify(this.props.detectFocus, null, 2) 
                     output = 
-                    <div>
-                        <div>{code}</div>
+                    <div className="json-wrapper">
+                        <pre>{code}</pre>
                         <CopyBtn text={code}/>
                     </div>
             } else if (this.state.view == "photo"){
@@ -63,8 +63,8 @@ class OutputPanel extends Component {
                 </div>
                 <div class ="codebox">
                     {this.props.renderOutput ? 
-                        <div>
-                            <pre>{output}</pre>
+                        <div id="output-wrapper">
+                            {output}
                         </div>
                         :
                         <p>no alt tags detected</p>
