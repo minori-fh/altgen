@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,6 @@
     "@google-cloud/vision": "^2.1.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-fileupload": "^1.2.0",
     "form-data": "^3.0.0",
     "formidable": "^1.2.2",
     "multer": "^1.4.2",
