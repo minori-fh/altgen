@@ -9,12 +9,12 @@ router.use("/api", apiRoutes)
 // serve react files at root route
 router.get('/', function(req, res) {
     console.log("get route hit")
-    res.sendFile(path.join(__dirname, '../client/public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/build'));
 });
 
 router.use((req, res) => {
     console.log("main catchall * route hit")
-    res.sendFile(path.join(__dirname, '../client/public', 'index.html' ))
+    res.sendFile(path.join(__dirname, '../client/build'))
 })
 
 module.exports = router
