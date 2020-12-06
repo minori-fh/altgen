@@ -47,7 +47,7 @@ class App extends Component {
       <div id="main-container">
 
         <div id="intro">
-          <p>Generate alt tags (text detection) for images using Google's <a href="https://cloud.google.com/vision">Cloud Vision API</a>.</p><br/>
+          <p><b>Generate text detection(s) for image(s)</b> using Google's <a href="https://cloud.google.com/vision">Cloud Vision API</a>.</p><br/>
           <p style={{color: "rgb(47, 23, 156)"}}><b>Upload images to get started.</b></p>
         </div>
         <div id="panels">
