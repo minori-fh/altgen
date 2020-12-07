@@ -8,7 +8,6 @@ require('dotenv').config()
 // https://cloud.google.com/vision/docs/features-list
 
 router.post('/upload-image', function(req, res) {
-
   // FORMIDABLE: new form instance
   const form = formidable({ multiples: true });
   form.parse(req)

@@ -31,6 +31,10 @@ class InputPanel extends Component {
             axios({
                 url: '/api/upload-image',
                 method: 'POST',
+                proxy: {
+                    host: "localhost",
+                    port: 8080
+                },
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
