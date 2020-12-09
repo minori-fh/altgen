@@ -23,50 +23,47 @@ const s3 = new AWS.S3({
   region: AWS_REGION
 })
 
-let callVisionText = async (filename, url) => {
-
+async function callVisionText(filename, url) {
   const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
 
-    client.textDetection(url)
-    .then(results => {
-      
-      let rawDetect = results[0].textAnnotations
-      let focusDetect = results[0].textAnnotations[0].description;
+  let results = await client.textDetection(url);  let newdetect = {}
 
-      let newdetect = [filename, focusDetect, rawDetect]
+  let rawDetect = results[0].textAnnotations
+  let focusDetect = results[0].textAnnotations[0].description;
 
-      console.log([filename, focusDetect])
-      return(newdetect)
-    })
-    .catch(err => {
-      console.error("ERROR: ", err)
-    })
+  newdetect[filename] = {"focusDetect" : focusDetect, "rawDetect" : rawDetect}
 
-  // let getTextDetect = new Promise((detectdata) => {
-
-  //   const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
-
-  //   client.textDetection(url)
-  //   .then(results => {
-      
-  //     let rawDetect = results[0].textAnnotations
-  //     let focusDetect = results[0].textAnnotations[0].description;
-
-  //     let newdetect = [filename, focusDetect, rawDetect]
-
-  //     console.log(newdetect)
-  //     detectdata(newdetect)
-  //   })
-  //   .catch(err => {
-  //     console.error("ERROR: ", err)
-  //   })
-  // })
-
-  // detect = await getTextDetect
-  // let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-  // detections[key] = {"focused":focused, "raw": raw} 
-
+  return(newdetect)
 }
+
+// let callVisionText = async (filename, url) => {
+
+//   // let getTextDetect = new Promise((detectdata) => {
+//   //   const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+
+//   //   client.textDetection(url)
+
+
+//   //   .then(results => {
+      
+//   //     let rawDetect = results[0].textAnnotations
+//   //     let focusDetect = results[0].textAnnotations[0].description;
+//   //     let currentfile = filename.toString()
+//   //     let newdetect = {}
+
+//   //     newdetect[currentfile] = {"focusDetect" : focusDetect, "rawDetect" : rawDetect}
+
+//   //     console.log(newdetect)
+//   //     detectdata(newdetect)
+//   //   })
+//   //   .catch(err => {
+//   //     console.error("ERROR: ", err)
+//   //   })
+//   // })
+
+//   let detect = await getTextDetect(filename, url)
+//   return(detect)
+// }
 
 // API POST REQUEST: multer handle single file upload
 router.post('/upload-image/single', upload.single("file"), function(req, res) {
@@ -100,7 +97,9 @@ router.post('/upload-image/multiple', upload.array("file", 12), function(req, re
   let checkCompletion = () => {
     let files = Object.keys(result); let submitcount = req.files.length; let resultcount = files.length;
 
-    if (submitcount == resultcount){res.send(result)}
+    console.log(submitcount)
+    console.log(resultcount)
+    if (submitcount == resultcount){console.log(result); res.send(result)}
   }
 
   for (let i = 0; i < photos.length; i++){
@@ -120,10 +119,13 @@ router.post('/upload-image/multiple', upload.array("file", 12), function(req, re
         res.status(500).json({error: true, Message: err})
       } else {
         console.log("UPLOAD SUCCESS FOR " + data.key)
-        let detect = callVisionText(data.key, data.Location)
-        result[data.key] = [data, detect]
-
-        checkCompletion()
+        callVisionText(data.key, data.Location).then((visiondetect) => {
+          let detect = visiondetect
+          result[data.key] = [data, detect]
+          checkCompletion()
+        })
+        // let detect = callVisionText(data.key, data.Location) //maybe this needs an AWAIT
+        // result[data.key] = [data, detect]
       }
     })
   }

@@ -17,8 +17,8 @@ class App extends Component {
     }
   }
 
-  handleDetect = (res, imgdata) => {
-    let filenames = res.filenames; let urls = imgdata; let detections = res.detections;
+  handleDetect = (res) => {
+    let filenames = Object.keys(res); let urls = {}; 
 
     console.log("DETECTIONS IN APP.JS FOR: " + filenames);
 
@@ -27,15 +27,27 @@ class App extends Component {
     let detectFocus = {}
 
     filenames.map((file, index) => {
-      // add to detectRaw object
-      detectRaw[file] = detections[file].raw
+
+      let filedata = res[file]
+      console.log(filedata)
+      let awsdata = filedata[0]
+      let visiondata = filedata[1]
+      console.log(visiondata)
 
       // add to detectFocus object
-      let rawstr = detections[file].focused; 
+      let detects = visiondata[file]
+      console.log(detects)
+      let rawstr = detects.focusDetect
       let altstr = rawstr.replace(/\n/g, " ");
 
       detectFocus[file] = altstr;
       console.log(file + " : " + altstr)
+
+      // add to URL object
+      urls[file] = awsdata.originalname
+
+      // add to detectRaw object
+      detectRaw[file] = visiondata[2]
     })
     
     console.log("DETECTFOCUS HERE: " + Object.values(detectFocus))

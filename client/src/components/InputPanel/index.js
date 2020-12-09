@@ -46,14 +46,11 @@ class InputPanel extends Component {
             }).then((res) => {
 
                 console.log(res.data)
+                console.log(Object.keys(res.data))
 
-                // let awsdata = res.data[0]; let visiondetect = res.data[1]
-                // console.log("AWS DATA: " + awsdata.key)
-                // console.log("AWS DATA: " + visiondetect)
-                // console.log("RES DETECTED FOR: " + res.data.filenames)
-                // this.props.sendDetect(res.data, this.urls)
-                // this.setState({filenames: res.data.filenames, uploadComplete: true, error: "none"})
-                // {"data":{"ETag":"\"2f4444b1f16950bb28dbe32d3e739735\"","Location":"https://altgenassets.s3.us-west-1.amazonaws.com/200222_NursingEducation_R02.jpg","key":"200222_NursingEducation_R02.jpg","Key":"200222_NursingEducation_R02.jpg","Bucket":"altgenassets"}}
+                this.props.sendDetect(res.data)
+                this.setState({filenames: Object.keys(res.data), uploadComplete: true, error: "none"})
+    
             })   
 
         } else {
