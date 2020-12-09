@@ -1,63 +1,71 @@
 const router = require("express").Router();
 const path = require("path")
 const vision = require('@google-cloud/vision');
-const formidable = require('formidable');
+const multer = require("multer");
 const fs = require('fs')
+const AWS = require('aws-sdk');
+
 require('dotenv').config()
-// REF DOC FOR GOOGLE VISION API: https://googleapis.dev/nodejs/vision/1.8.0/module-@google-cloud_vision.html
-// https://cloud.google.com/vision/docs/features-list
 
-router.post('/upload-image', function(req, res) {
-  // FORMIDABLE: new form instance
-  const form = formidable({ multiples: true });
-  form.parse(req)
+// MULTER STORAGE configurations
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
-  let filenames = []; let detections = {}; let counter = 0; let detect = []; 
+// AWS S3 configurations
+const S3_BUCKET = process.env.AWS_S3_BUCKET.toString()
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID.toString()
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY.toString()
 
-  let callVisionText = async (filename) => {
-    let getTextDetect = new Promise((detectdata) => {
+const s3 = new AWS.S3({
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY
+});
 
-      const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+router.post('/upload-image', upload.single("file"), function(req, res) {
 
-      client.textDetection('uploads/images' + filename)
-      .then(results => {
-        
-        let rawDetect = results[0].textAnnotations
-        let focusDetect = results[0].textAnnotations[0].description;
+  let file = req.file;
+  console.log(file)
 
-        let newdetect = [filename, focusDetect, rawDetect]
+  // for (let i = 0; i < filelistarr.length; i++){
+  //   console.log(filelistarr[i])
+  // }
 
-        counter++;
-        console.log(newdetect)
-        console.log("COUNTER TEXT: " +  counter)
-        detectdata(newdetect)
-      })
-      .catch(err => {
-        console.error("ERROR: ", err)
-      })
-    })
+  // const params = {
+  //   Bucket: S3_BUCKET,
+  //   Key: file.name,
+  //   Body: fileStream
+  // };
 
-    detect = await getTextDetect
-    let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-    detections[key] = {"focused":focused, "raw": raw} 
-    checkCompletion()
-  }
+  // s3.upload(params, function(err, data) {
+  //   if (err) {
+  //       throw err;
+  //   }
+  //   console.log(`File uploaded successfully. ${data.Location}`);
+  // });
 
-  // let callVisionImage = async (filename) => {
-  //   let getImagePropDetect = new Promise((detectdata) => {
+
+  // // FORMIDABLE: new form instance
+  // const form = formidable({ multiples: true });
+  // form.parse(req)
+
+  // let filenames = []; let detections = {}; let counter = 0; let detect = []; 
+
+  // let callVisionText = async (filename) => {
+  //   let getTextDetect = new Promise((detectdata) => {
+
   //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
 
-  //     client.imageProperties('routes/api/uploads/' + filename)
+  //     client.textDetection('uploads/images' + filename)
   //     .then(results => {
-
-  //       let focusDetect = results[0].imagePropertiesAnnotation.dominantColors.colors;
-  //       let rawDetect = results[0].imagePropertiesAnnotation
+        
+  //       let rawDetect = results[0].textAnnotations
+  //       let focusDetect = results[0].textAnnotations[0].description;
 
   //       let newdetect = [filename, focusDetect, rawDetect]
 
   //       counter++;
   //       console.log(newdetect)
-  //       console.log("COUNTER IMG: " +  counter)
+  //       console.log("COUNTER TEXT: " +  counter)
   //       detectdata(newdetect)
   //     })
   //     .catch(err => {
@@ -65,77 +73,99 @@ router.post('/upload-image', function(req, res) {
   //     })
   //   })
 
-  //   detect = await getImagePropDetect
+  //   detect = await getTextDetect
   //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
   //   detections[key] = {"focused":focused, "raw": raw} 
   //   checkCompletion()
   // }
 
-  // let callVisionObject = async (filename) => {
-  //   let getObjectLocalizeDetect = new Promise((detectdata) => {
+  // // let callVisionImage = async (filename) => {
+  // //   let getImagePropDetect = new Promise((detectdata) => {
+  // //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
 
-  //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
-  //     const request = {
-  //       image: {content: fs.readFileSync('routes/api/uploads/' + filename)},
-  //     };
+  // //     client.imageProperties('routes/api/uploads/' + filename)
+  // //     .then(results => {
 
-  //     client.objectLocalization(request)
-  //     .then(results => {
+  // //       let focusDetect = results[0].imagePropertiesAnnotation.dominantColors.colors;
+  // //       let rawDetect = results[0].imagePropertiesAnnotation
 
-  //       let focusDetect = results[0].localizedObjectAnnotations;
-  //       let rawDetect = " "
+  // //       let newdetect = [filename, focusDetect, rawDetect]
 
-  //       let newdetect = [filename, focusDetect, rawDetect]
+  // //       counter++;
+  // //       console.log(newdetect)
+  // //       console.log("COUNTER IMG: " +  counter)
+  // //       detectdata(newdetect)
+  // //     })
+  // //     .catch(err => {
+  // //       console.error("ERROR: ", err)
+  // //     })
+  // //   })
 
-  //       counter++;
-  //       console.log(newdetect)
-  //       console.log("COUNTER OBJ: " +  counter)
-  //       detectdata(newdetect)
-  //     })
-  //     .catch(err => {
-  //       console.error("ERROR: ", err)
-  //     })
-  //   })
+  // //   detect = await getImagePropDetect
+  // //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+  // //   detections[key] = {"focused":focused, "raw": raw} 
+  // //   checkCompletion()
+  // // }
 
-  //   detect = await getObjectLocalizeDetect
-  //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
-  //   detections[key] = {"focused" : focused, "raw" : raw} 
-  //   checkCompletion()
+  // // let callVisionObject = async (filename) => {
+  // //   let getObjectLocalizeDetect = new Promise((detectdata) => {
+
+  // //     const client = new vision.ImageAnnotatorClient({ keyFilename: 'key.json'});
+  // //     const request = {
+  // //       image: {content: fs.readFileSync('routes/api/uploads/' + filename)},
+  // //     };
+
+  // //     client.objectLocalization(request)
+  // //     .then(results => {
+
+  // //       let focusDetect = results[0].localizedObjectAnnotations;
+  // //       let rawDetect = " "
+
+  // //       let newdetect = [filename, focusDetect, rawDetect]
+
+  // //       counter++;
+  // //       console.log(newdetect)
+  // //       console.log("COUNTER OBJ: " +  counter)
+  // //       detectdata(newdetect)
+  // //     })
+  // //     .catch(err => {
+  // //       console.error("ERROR: ", err)
+  // //     })
+  // //   })
+
+  // //   detect = await getObjectLocalizeDetect
+  // //   let key = detect[0]; let focused = detect[1]; let raw = detect[2];
+  // //   detections[key] = {"focused" : focused, "raw" : raw} 
+  // //   checkCompletion()
+  // // }
+
+  // // RESPONSE: send response after detections for all files are complete
+  
+  // let checkCompletion = () => {
+  //   console.log("counter: " + counter)
+  //   console.log("filename length: " + filenames.length)
+  //   if (counter == filenames.length){
+  //     console.log("sending this to client: " + filenames)
+  //     res.json({"filenames": filenames, "detections" : detections})
+  //   }
   // }
 
-  // RESPONSE: send response after detections for all files are complete
-  
-  let checkCompletion = () => {
-    console.log("counter: " + counter)
-    console.log("filename length: " + filenames.length)
-    if (counter == filenames.length){
-      console.log("sending this to client: " + filenames)
-      res.json({"filenames": filenames, "detections" : detections})
-    }
-  }
+  // // FORMIDABLE: fileupload begin
+  // form.on("fileBegin", (name, file) => {
+  //     file.path = 'uploads/images' + file.name
+  // })
 
-  // FORMIDABLE: fileupload begin
-  form.on("fileBegin", (name, file) => {
-      file.path = 'uploads/images' + file.name
-  })
+  // // FORMIDABLE: instance of file
+  // form.on("file", (name, file) => {
+  //   filenames.push(file.name); console.log("UPLOADING FILE: " + file.name);
 
-  // FORMIDABLE: instance of file
-  form.on("file", (name, file) => {
-    filenames.push(file.name); console.log("UPLOADING FILE: " + file.name);
-    callVisionText(file.name)
-    // if (detectType == "text"){
-    //   callVisionText(file.name)
-    // } else if (detectType == "imageprop"){
-    //   callVisionImage(file.name)
-    // } else if (detectType == "objectlocalize"){
-    //   callVisionObject(file.name)
-    // }
-  })
+  //   callVisionText(file.name)
+  // })
 
-  // FORMIDABLE: fileupload end
-  form.on('end', () => {
-    console.log('!!!!FORM HANDLING DONE!!!!!');
-  });
+  // // FORMIDABLE: fileupload end
+  // form.on('end', () => {
+  //   console.log('!!!!FORM HANDLING DONE!!!!!');
+  // });
 });
 
 router.use((req, res) => {

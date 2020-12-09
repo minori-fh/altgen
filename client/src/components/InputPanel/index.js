@@ -29,15 +29,11 @@ class InputPanel extends Component {
             Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
 
             axios({
-                url: '/api/upload-image',
+                url: 'http://localhost:8080/api/upload-image',
                 method: 'POST',
-                proxy: {
-                    host: "localhost",
-                    port: 8080
-                },
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                },
+                }, 
                 data: formdata
             }).then((res) => {
                 console.log("RES DETECTED FOR: " + res.data.filenames)
