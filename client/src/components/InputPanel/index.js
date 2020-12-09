@@ -21,24 +21,39 @@ class InputPanel extends Component {
         event.preventDefault();
 
         if (this.state.files != null && this.state.files.length > 0){
-            console.log("uploading " + this.state.files.length + " files")
-            // create FormData
-            let formdata = new FormData();
-            let files = this.state.files; 
+            console.log("submitting " + this.state.files.length + " files")
 
+            // create FormData
+            let formdata = new FormData(); let files = this.state.files; 
             Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
 
+            // create postUrl depending on file count
+            let url;
+
+            if (this.state.files.length > 1){
+                url = "http://localhost:8080/api/upload-image/multiple"
+            } else if (this.state.files.length == 1){
+                url = "http://localhost:8080/api/upload-image/single"
+            }
+
             axios({
-                url: 'http://localhost:8080/api/upload-image',
+                url: url,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }, 
                 data: formdata
             }).then((res) => {
-                console.log("RES DETECTED FOR: " + res.data.filenames)
-                this.props.sendDetect(res.data, this.urls)
-                this.setState({filenames: res.data.filenames, uploadComplete: true, error: "none"})
+
+                console.log(res.data)
+
+                // let awsdata = res.data[0]; let visiondetect = res.data[1]
+                // console.log("AWS DATA: " + awsdata.key)
+                // console.log("AWS DATA: " + visiondetect)
+                // console.log("RES DETECTED FOR: " + res.data.filenames)
+                // this.props.sendDetect(res.data, this.urls)
+                // this.setState({filenames: res.data.filenames, uploadComplete: true, error: "none"})
+                // {"data":{"ETag":"\"2f4444b1f16950bb28dbe32d3e739735\"","Location":"https://altgenassets.s3.us-west-1.amazonaws.com/200222_NursingEducation_R02.jpg","key":"200222_NursingEducation_R02.jpg","Key":"200222_NursingEducation_R02.jpg","Bucket":"altgenassets"}}
             })   
 
         } else {
