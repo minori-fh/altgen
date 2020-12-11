@@ -16,6 +16,7 @@ app.use(cors())
 app.use(routes)
 
 if (process.env.NODE_ENV === "production"){
+    console.log(process.env.NODE_ENV)
     app.use(express.static(__dirname + '/client/build')); // this folder will not exist until "npm run build" is run for the first time in the client
     
     app.get('*', function(req, res) {
