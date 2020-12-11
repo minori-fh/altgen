@@ -28,7 +28,7 @@ async function callVisionText(filename, url) {
 
     // const client = new vision.ImageAnnotatorClient({ keyFilename: process.env.VISION_KEY, projectId: "altgen"});
 
-  fs.writeFileSync(path.join(__dirname, 'gcloud-credentials.json'), process.env.SERVICE_ACCOUNT_JSON);
+  fs.writeFileSync(path.join('gcloud-credentials.json'), process.env.SERVICE_ACCOUNT_JSON.toString());
   const client = new vision.ImageAnnotatorClient();
   let results = await client.textDetection(url);  let newdetect = {}
 
