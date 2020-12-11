@@ -11,9 +11,9 @@ router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-router.use((req, res) => {
-    console.log("main catchall * route hit")
-    res.sendFile(path.join(__dirname, '../client/build/index.html'))
-})
+// router.use((req, res) => {
+//     console.log("main catchall * route hit")
+//     res.sendFile(path.join(__dirname, '../client/build/index.html'))
+// })
 
 module.exports = router
