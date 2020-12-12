@@ -56,7 +56,7 @@ class InputPanel extends Component {
 
     onChange = (event) => {
         console.log("onChange for " + event.target.files.length)
-        this.setState({files: event.target.files.length})
+        this.setState({files: event.target.files})
     }
 
     render(){
