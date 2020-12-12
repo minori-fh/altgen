@@ -19,7 +19,6 @@ class App extends Component {
 
   handleDetect = (res) => {
     let filenames = Object.keys(res); let urls = {}; 
-
     console.log("DETECTIONS IN APP.JS FOR: " + filenames);
 
     // for each uploaded file
@@ -27,16 +26,11 @@ class App extends Component {
     let detectFocus = {}
 
     filenames.map((file, index) => {
-
       let filedata = res[file]
-      console.log(filedata)
-      let awsdata = filedata[0]
-      let visiondata = filedata[1]
-      console.log(visiondata)
+      let awsdata = filedata[0]; let visiondata = filedata[1];
 
       // add to detectFocus object
       let detects = visiondata[file]
-      console.log(detects)
       let rawstr = detects.focusDetect
       let altstr = rawstr.replace(/\n/g, " ");
 
@@ -44,20 +38,19 @@ class App extends Component {
       console.log(file + " : " + altstr)
 
       // add to URL object
-      urls[file] = awsdata.originalname
+      urls[file] = awsdata.Location
 
       // add to detectRaw object
       detectRaw[file] = visiondata[2]
     })
     
-    console.log("DETECTFOCUS HERE: " + Object.values(detectFocus))
+    console.log("HANDLEDETECT COMPLETE (alt): " + detectFocus); console.log("HANDLEDETECT COMPLETE (url): " + urls)
     this.setState({filenames: filenames, urls: urls, detectRaw: detectRaw, detectFocus: detectFocus, renderOutput: true})
   }
 
   render(){
     return(
       <div id="main-container">
-
         <div id="intro">
           <p><b>Generate text detection(s) for image(s)</b> using Google's <a href="https://cloud.google.com/vision" target="_blank">Cloud Vision API</a>.</p><br/>
           <p><b>Upload images to get started.</b></p>

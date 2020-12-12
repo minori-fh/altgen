@@ -8,7 +8,6 @@ class InputPanel extends Component {
 
     constructor(props){
         super(props)
-        this.url = {}
         this.state = {
             files: null,
             filenames: [],
@@ -44,15 +43,11 @@ class InputPanel extends Component {
                 }, 
                 data: formdata
             }).then((res) => {
-
-                console.log(res.data)
-                console.log(Object.keys(res.data))
+                console.log("POST REQUEST RESPONSE " +  res.data)
 
                 this.props.sendDetect(res.data)
                 this.setState({filenames: Object.keys(res.data), uploadComplete: true, error: "none"})
-    
             })   
-
         } else {
             this.setState({error: "Please choose file(s)", uploadComplete: false})
         }
@@ -60,23 +55,8 @@ class InputPanel extends Component {
     }
 
     onChange = (event) => {
-        console.log("FILES IN INPUT: " + event.target.files)
-
-        let urls = {}; let files = event.target.files;
-
-        for (let i = 0; i < files.length; i++ ){
-
-            let currentFile = files[i]; let filename = currentFile.name; let url = URL.createObjectURL(files[i])
-            urls[filename] = url
-        }
-
-        this.urls = urls
-        this.setState({files: files})
-    }
-
-    setDetectType = (event) => {
-        console.log("DETECT TYPE CHOSEN: "  + event.target.value)
-        this.detectType = event.target.value
+        console.log("onChange for " + event.target.files.length)
+        this.setState({files: event.target.files.length})
     }
 
     render(){
@@ -107,7 +87,6 @@ class InputPanel extends Component {
             </div>
             <div id="err-msg">
                 <p style={{color: color}}>{msg}</p>
-
             </div>
         </div>
         )

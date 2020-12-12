@@ -41,11 +41,9 @@ class OutputPanel extends Component {
         if (this.state.view == "json") {
             jsonBtnColor = "#2f179c"
             photoBtnColor = "#808080"
-            console.log("is this hitting")
         } else if (this.state.view == "photo") {
             photoBtnColor = "#2f179c"
             jsonBtnColor = "#808080"
-            console.log("is this hitting")
         }
 
         return(        
