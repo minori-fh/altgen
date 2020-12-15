@@ -14,8 +14,8 @@
     background-color: #a29bfe;
     transition: 1s;
     font-family: 'Roboto Mono', monospace !important;
-    position: absolute;
-    bottom: 0px;
+    float: right;
+    text-align: center;
 }
 
 #copy-btn:hover {
