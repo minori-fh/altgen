@@ -116,4 +116,13 @@ button:focus {
     flex-direction: column;
     align-items: center;
   }
+  #intro {
+    font-size: 10px !important;
+  }
+  .panel-menubar p{
+    font-size: 15px;
+  }
+  #main-container {
+    font-size: 12px !important;
+  }
 }

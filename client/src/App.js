@@ -52,7 +52,7 @@ class App extends Component {
     return(
       <div id="main-container">
         <div id="intro">
-          <p><b>Generate text detection(s) for image(s)</b> using Google's <a href="https://cloud.google.com/vision" target="_blank">Cloud Vision API</a>.</p><br/>
+          <p>Generate text detection(s) for image(s) using Google's <a href="https://cloud.google.com/vision" target="_blank"><b>Cloud Vision API</b></a>.</p><br/>
           <p><b>Upload images to get started.</b></p>
         </div>
         <div id="panels">
