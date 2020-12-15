@@ -24,6 +24,13 @@ select {
     font-family: 'Roboto Mono', monospace !important;  
 }
 
+.panel-menubar p, #uploaded-files p{
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    word-wrap: break-word !important;    
+}
+
 #form {
     border-radius: 7px;
     width: 100%;
@@ -45,13 +52,6 @@ select {
     justify-content: flex-start;
     align-items: flex-start;
     white-space: pre-wrap;
-}
-
-#uploaded-files p {
-    width: 100%;
-    max-width: 100%;
-    text-align: left;
-    word-wrap: break-word !important;
 }
 
 #input {
