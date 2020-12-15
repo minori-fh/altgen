@@ -11,7 +11,8 @@
     max-width: 30%;
     padding: 10px;
     white-space: pre-wrap;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .jumbo-wrapper div {
@@ -22,4 +23,8 @@
 .img-jumbo {
     width: 80%;
     max-width: 80%;
+}
+
+.emphasis {
+    text-decoration: underline;
 }

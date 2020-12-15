@@ -16,6 +16,8 @@
     font-family: 'Roboto Mono', monospace !important;
     float: right;
     text-align: center;
+    align-self: flex-end;
+    margin-top: auto;
 }
 
 #copy-btn:hover {
