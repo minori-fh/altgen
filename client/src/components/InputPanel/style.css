@@ -47,6 +47,13 @@ select {
     white-space: pre-wrap;
 }
 
+#uploaded-files p {
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+    word-wrap: break-word !important;
+}
+
 #input {
     font-family: 'Roboto Mono', monospace !important;
     width: 330px;

@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       filenames: [],
       urls: {},
-      detectRaw: null,
+      // detectRaw: null,
       detectFocus: null,
       renderOutput: false,
     }
@@ -22,7 +22,7 @@ class App extends Component {
     console.log("DETECTIONS IN APP.JS FOR: " + filenames);
 
     // for each uploaded file
-    let detectRaw = {}
+    // let detectRaw = {}
     let detectFocus = {}
 
     filenames.map((file, index) => {
@@ -41,11 +41,11 @@ class App extends Component {
       urls[file] = awsdata.Location
 
       // add to detectRaw object
-      detectRaw[file] = visiondata[2]
+      // detectRaw[file] = visiondata[2]
     })
     
     console.log("HANDLEDETECT COMPLETE (alt): " + detectFocus); console.log("HANDLEDETECT COMPLETE (url): " + urls)
-    this.setState({filenames: filenames, urls: urls, detectRaw: detectRaw, detectFocus: detectFocus, renderOutput: true})
+    this.setState({filenames: filenames, urls: urls, detectFocus: detectFocus, renderOutput: true})
   }
 
   render(){
@@ -57,7 +57,7 @@ class App extends Component {
         </div>
         <div id="panels">
           <InputPanel sendDetect={this.handleDetect}/>
-          <OutputPanel filenames={this.state.filenames} urls={this.state.urls} detectRaw={this.state.detectRaw} detectFocus={this.state.detectFocus} renderOutput={this.state.renderOutput}/>
+          <OutputPanel filenames={this.state.filenames} urls={this.state.urls} detectFocus={this.state.detectFocus} renderOutput={this.state.renderOutput}/>
         </div>
       </div>
     )

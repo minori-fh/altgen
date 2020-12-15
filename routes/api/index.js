@@ -25,9 +25,6 @@ const s3 = new AWS.S3({
 
 async function callVisionText(filename, url) {
   // Google vision detection
-
-    // const client = new vision.ImageAnnotatorClient({ keyFilename: process.env.VISION_KEY, projectId: "altgen"});
-
   fs.writeFileSync(path.join('gcloud-credentials.json'), process.env.SERVICE_ACCOUNT_JSON.toString());
   const client = new vision.ImageAnnotatorClient();
   let results = await client.textDetection(url);  let newdetect = {}
@@ -35,7 +32,7 @@ async function callVisionText(filename, url) {
   // Parse detection
   let rawDetect = results[0].textAnnotations
   let focusDetect = results[0].textAnnotations[0].description;
-  newdetect[filename] = {"focusDetect" : focusDetect, "rawDetect" : rawDetect}
+  newdetect[filename] = {"focusDetect" : focusDetect}
 
   return(newdetect)
 }
