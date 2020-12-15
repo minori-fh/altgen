@@ -64,7 +64,7 @@
 
 #intro {
   width: 100%;
-  height: 70px; 
+  height: 12%; 
   text-align: center;
   color: rgb(89, 73, 158);
   padding-top: 10px;
@@ -118,6 +118,7 @@ button:focus {
   }
   #intro {
     font-size: 10px !important;
+    height: 10%;
   }
   .panel-menubar p{
     font-size: 15px;

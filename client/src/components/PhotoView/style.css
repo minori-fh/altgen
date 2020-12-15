@@ -2,13 +2,20 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    height: 100%;
 }
 
 .jumbo-wrapper {
-    width: 33%;
-    max-width: 33%;
-    padding: 20px;
+    width: 30%;
+    max-width: 30%;
+    padding: 10px;
     white-space: pre-wrap;
+    position: relative;
+}
+
+.jumbo-wrapper div {
+    max-width: 100%;
+    word-wrap: break-word !important;
 }
 
 .img-jumbo {
