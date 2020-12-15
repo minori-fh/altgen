@@ -49,7 +49,7 @@ class OutputPanel extends Component {
         return(        
             <div id="output-panel-container">
                 <div className="panel-menubar">
-                <p>Alt Tags</p>
+                <p>Text Detection</p>
                 </div>
                 <div id="view-menubar">
                     <button style={{color: this.state.view == "photo"? 'white': '#808080',

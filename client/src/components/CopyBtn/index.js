@@ -6,7 +6,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 function CopyBtn(props){
 
     return(
-        <CopyToClipboard text={props.text}><button className="btn" id="copy-btn">copy text</button></CopyToClipboard>
+        <CopyToClipboard text={props.text}><button className="btn" id="copy-btn">copy detect</button></CopyToClipboard>
     )
 }
 
