@@ -1,7 +1,7 @@
 # AltGen :abc:
 
 ## Description of Site
-"AltGen" is a Node.js application that utilizes Google's Cloud Vision API to perform text detection on images and stores them in Amazon's S3 object storage service.
+"AltGen" is a Node.js application that utilizes Google's Cloud Vision API to perform text detection on images and stores the images in Amazon's S3 object storage service.
 
 The site was built for the purpose of demonstrating the usage of Vision API to create alt text for front-end purposes. 
 
@@ -44,8 +44,9 @@ Before starting the client, add a proxy in the client's package.json file:
   "proxy": "http://localhost:8080",
 ```
 
-Install client dependencies and start react client:
+Navigate to the client directory, install dependencies and start react client:
 ```
+# open a new shell and navigate to AltGen client directory
 $ npm i
 $ npm start
 ```
@@ -55,18 +56,18 @@ Incorporate a database and connection with Google Drive to allow users to upload
 ## Built with: 
 1. [Cloud Vision API](https://cloud.google.com/vision)
 2. [Amazon AWS S3](https://aws.amazon.com/s3/)
-1. [Express](https://expressjs.com/)
-1. [React](https://reactjs.org/docs/getting-started.html)
-2. [HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
-3. [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
-4. [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+3. [Express](https://expressjs.com/)
+4. [React](https://reactjs.org/docs/getting-started.html)
+5. [HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+6. [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+7. [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 8. [Node*](https://nodejs.org/en/download/)
 
 ## *Node Packages Used
 1. [Multer](https://www.npmjs.com/package/multer)
-3. [Axios](https://www.npmjs.com/package/axios)
+2. [Axios](https://www.npmjs.com/package/axios)
 3. [Google Cloud Vision API](https://www.npmjs.com/package/@google-cloud/vision)
-3. [AWS SDK](https://www.npmjs.com/package/aws-sdk)
+4. [AWS SDK](https://www.npmjs.com/package/aws-sdk)
 5. [Path](https://nodejs.org/api/path.html)
 
 ## Author(s): 

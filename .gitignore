@@ -4,3 +4,4 @@ node_modules
 key.json
 test.json
 test.js
+gcloud-credentials.json
