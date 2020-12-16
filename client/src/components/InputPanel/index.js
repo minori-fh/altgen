@@ -30,9 +30,9 @@ class InputPanel extends Component {
             let url;
 
             if (this.state.files.length > 1){
-                url = "https://gen-alt.herokuapp.com/api/upload-image/multiple"
+                url = "http://localhost:8080/api/upload-image/multiple"
             } else if (this.state.files.length == 1){
-                url = "https://gen-alt.herokuapp.com/api/upload-image/single"
+                url = "http://localhost:8080/api/upload-image/single"
             }
 
             axios({

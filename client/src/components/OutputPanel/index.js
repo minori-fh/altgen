@@ -29,7 +29,6 @@ class OutputPanel extends Component {
                     output = 
                     <div className="json-wrapper">
                         <pre>{code}</pre>
-                        <CopyBtn text={code}/>
                     </div>
             } else if (this.state.view == "photo"){
                 output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
@@ -68,6 +67,11 @@ class OutputPanel extends Component {
                         <p>no alt tags detected</p>
                     }
                 </div>
+                {this.state.view == "json" &&
+                <div id="jsoncopy-wrapper">
+                    <CopyBtn text={code}/>
+                </div>
+                }
             </div>
         )
     }

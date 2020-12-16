@@ -32,7 +32,7 @@
 .codebox {
     width: 100%;
     max-width: 100%;
-    height: calc(100% - 80px);
+    height: calc(100% - 110px);
     overflow-y: scroll;
     padding: 0px 15px 0px 15px;
 }
@@ -70,10 +70,18 @@ pre, .output-wrapper {
     height: 100%;
 }
 
+#jsoncopy-wrapper {
+    max-width: 100%;
+    padding-right: 15px;
+    height: 25px;
+    width: 100%;
+    margin-top: 5px;
+}
+
 @media only screen and (max-width: 768px) {
     #output-panel-container {
         width: 90%;
         max-width: 90%;
-        height: 70%;
+        height: 60%;
     }
   }
