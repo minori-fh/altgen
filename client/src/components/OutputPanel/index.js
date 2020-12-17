@@ -64,7 +64,7 @@ class OutputPanel extends Component {
                             {output}
                         </div>
                         :
-                        <p>no alt tags detected</p>
+                        <p>no text detected</p>
                     }
                 </div>
                 {this.state.view == "json" &&

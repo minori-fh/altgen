@@ -28,13 +28,22 @@ async function callVisionText(filename, url) {
   fs.writeFileSync(path.join('gcloud-credentials.json'), process.env.SERVICE_ACCOUNT_JSON.toString());
   const client = new vision.ImageAnnotatorClient();
   let results = await client.textDetection(url);  let newdetect = {}
+  console.log("THIS IS RESULTS: " + results[0].textAnnotations[0])
+  console.log("THIS IS TYPEOFRESULTS: " + typeof results[0].textAnnotations[0])
 
-  // Parse detection
-  let rawDetect = results[0].textAnnotations
-  let focusDetect = results[0].textAnnotations[0].description;
-  newdetect[filename] = {"focusDetect" : focusDetect}
+  if (results[0].textAnnotations[0] === undefined){
+        // Parse detection
+        let focusDetect = "text detection undefined"
+        newdetect[filename] = {"focusDetect" : focusDetect}
+        return(newdetect)
 
-  return(newdetect)
+  } else {
+    // Parse detection
+    let rawDetect = results[0].textAnnotations
+    let focusDetect = results[0].textAnnotations[0].description
+    newdetect[filename] = {"focusDetect" : focusDetect}
+    return(newdetect)
+  }
 }
 
 // API POST REQUEST: multer handle single file upload

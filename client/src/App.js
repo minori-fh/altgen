@@ -43,7 +43,6 @@ class App extends Component {
       // add to detectRaw object
       // detectRaw[file] = visiondata[2]
     })
-    
     console.log("HANDLEDETECT COMPLETE (alt): " + detectFocus); console.log("HANDLEDETECT COMPLETE (url): " + urls)
     this.setState({filenames: filenames, urls: urls, detectFocus: detectFocus, renderOutput: true})
   }
