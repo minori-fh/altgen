@@ -18,13 +18,29 @@ class InputPanel extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        let files = this.state.files; 
 
-        if (this.state.files != null && this.state.files.length > 0){
+        if (this.state.files != null && this.state.files.length > 0 && this.state.files.length < 11){
             console.log("submitting " + this.state.files.length + " files")
 
             // create FormData
-            let formdata = new FormData(); let files = this.state.files; 
-            Array.from(files).forEach((file) => {formdata.append("file", file)}) // append files to formdata
+            let formdata = new FormData(); 
+
+            // check fileType and fileSize
+            Array.from(files).forEach((file) => {
+                console.log(file.size)
+                let filetype = file.type.replace("image/","")
+                console.log(filetype); 
+                let filesize = file.size
+
+                if ((filetype == "jpeg" || filetype == "png" || filetype == "jpg") && (filesize < 2000000)){
+                    // if criteria is met for fileType and fileSize, append formData
+                    formdata.append("file", file)
+                } else {
+                    let errormsg = "Error with " + file.name + ". Check file type/ size and reupload."
+                    this.setState({error: errormsg})
+                }
+            })
 
             // create postUrl depending on file count
             let url;
@@ -49,7 +65,7 @@ class InputPanel extends Component {
                 this.setState({filenames: Object.keys(res.data), uploadComplete: true, error: "none"})
             })   
         } else {
-            this.setState({error: "Please choose file(s)", uploadComplete: false})
+            this.setState({error: "File count error", uploadComplete: false})
         }
 
     }
@@ -62,7 +78,6 @@ class InputPanel extends Component {
     render(){
 
         let uploadedfiles = this.state.filenames.map((filename) => (<p>{filename}</p>))
-
         let msg; let color;
 
         if (this.state.error != "none"){
@@ -81,6 +96,9 @@ class InputPanel extends Component {
                     <input id="input" type="file" accept="image/*" name="photo" multiple="multiple" onChange={this.onChange}/>
                     <input id="upload-btn" class="btn" type="submit" value="upload" />
                 </form>
+                <div id="upload-constraint">
+                    <p>Please limit to 10 images (JPG/PNG) 2MB or less.</p>
+                </div>
                 <div id="uploaded-files">
                     {uploadedfiles}
                 </div>
