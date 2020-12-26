@@ -9,13 +9,13 @@ The site was built for the purpose of demonstrating the usage of Vision API to c
 [Click here to visit site](https://gen-alt.herokuapp.com/)
 
 **Upload Image:**
-![Input panel]
+![Input panel](client/public/siteimages/altgen_imgupload.PNG)
 
 **Text detection - JSON view:**
-![Output Panel: JSON view]
+![Output Panel: JSON view](client/public/siteimages/altgen_jsonview.PNG)
 
 **Text detection - PHOTO view:** 
-![Output Panel: PHOTO view]
+![Output Panel: PHOTO view](client/public/siteimages/altgen_photoview.PNG)
 
 ## Getting Started
 These instructions will help get you a copy of the project up and running on your local machine for development and testing purposes. 

@@ -36,7 +36,6 @@ async function callVisionText(filename, url) {
         let focusDetect = "text detection undefined"
         newdetect[filename] = {"focusDetect" : focusDetect}
         return(newdetect)
-
   } else {
     // Parse detection
     let rawDetect = results[0].textAnnotations
