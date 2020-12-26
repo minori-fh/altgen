@@ -8,7 +8,7 @@ The site was built for the purpose of demonstrating the usage of Vision API to c
 ## Pictures of Site
 [Click here to visit site](https://gen-alt.herokuapp.com/)
 
-**Upload Image:**
+**Upload Image Input Panel:** <br />
 ![Input panel](client/public/siteimages/altgen_imgupload.PNG)
 
 **Text detection - JSON view:**
@@ -55,13 +55,15 @@ Incorporate a database and connection with Google Drive to allow users to upload
 
 ## Built with: 
 1. [Cloud Vision API](https://cloud.google.com/vision)
-2. [Amazon AWS S3](https://aws.amazon.com/s3/)
+2. [Amazon AWS S3**](https://aws.amazon.com/s3/)
 3. [Express](https://expressjs.com/)
 4. [React](https://reactjs.org/docs/getting-started.html)
 5. [HTML](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
 6. [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
 7. [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 8. [Node*](https://nodejs.org/en/download/)
+
+** AWS is incorporated in the application for demonstration purposes and future improvements
 
 ## *Node Packages Used
 1. [Multer](https://www.npmjs.com/package/multer)
