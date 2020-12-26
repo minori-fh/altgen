@@ -14,6 +14,7 @@ class App extends Component {
       // detectRaw: null,
       detectFocus: null,
       renderOutput: false,
+      outputstatus: "",
     }
   }
 
@@ -47,6 +48,10 @@ class App extends Component {
     this.setState({filenames: filenames, urls: urls, detectFocus: detectFocus, renderOutput: true})
   }
 
+  loadingstatus = () => {
+    this.setState({outputstatus: "creating detections..."})
+  }
+
   render(){
     return(
       <div id="main-container">
@@ -55,8 +60,8 @@ class App extends Component {
           <p><b>Upload images to get started.</b></p>
         </div>
         <div id="panels">
-          <InputPanel sendDetect={this.handleDetect}/>
-          <OutputPanel filenames={this.state.filenames} urls={this.state.urls} detectFocus={this.state.detectFocus} renderOutput={this.state.renderOutput}/>
+          <InputPanel sendDetect={this.handleDetect} loadingstatus={this.loadingstatus}/>
+          <OutputPanel outputstatus={this.state.outputstatus} filenames={this.state.filenames} urls={this.state.urls} detectFocus={this.state.detectFocus} renderOutput={this.state.renderOutput}/>
         </div>
       </div>
     )

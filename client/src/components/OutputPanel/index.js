@@ -33,7 +33,7 @@ class OutputPanel extends Component {
             } else if (this.state.view == "photo"){
                 output = <PhotoView filenames={this.props.filenames} urls={this.props.urls} detectFocus={this.props.detectFocus} />
             }
-        }
+        } 
 
         let jsonBtnColor; let photoBtnColor;
 
@@ -64,7 +64,7 @@ class OutputPanel extends Component {
                             {output}
                         </div>
                         :
-                        <p>no text detected</p>
+                        <p>{this.props.outputstatus}</p>
                     }
                 </div>
                 {this.state.view == "json" &&
