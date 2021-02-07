@@ -18,8 +18,11 @@ function PhotoView(props){
         return(
         <div className="jumbo-wrapper">
             <img className="img-jumbo" src={urls[file]}/>
-            <div>{file}</div>
-            <CopyBtn text={alt[file]}/>
+            <div className="sub">
+                <div id="filename">{file}</div>
+                <CopyBtn text={alt[file]}/>
+            </div>
+
         </div>)
     })
 

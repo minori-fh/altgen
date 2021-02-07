@@ -1,4 +1,6 @@
 #photoview-container {
+    height: 100%;
+    padding-bottom: 10px;
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
@@ -11,15 +13,21 @@
     flex-direction: column;
 }
 
-.jumbo-wrapper div {
+#filename {
     max-width: 100%;
     word-wrap: break-word !important;
+    text-align: right;
+    padding-bottom: 5px;
 }
 
 .img-jumbo {
     width: 80%;
     max-width: 80%;
     margin: 0 auto;
+}
+
+.sub {
+    margin-top: auto;
 }
 
 @media only screen and (max-width: 481px) {
