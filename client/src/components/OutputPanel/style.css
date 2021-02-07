@@ -34,7 +34,7 @@
     max-width: 100%;
     height: calc(100% - 110px);
     overflow-y: scroll;
-    padding: 0px 15px 0px 15px;
+    padding: 15px;
 }
 
 pre, .output-wrapper {
@@ -85,3 +85,6 @@ pre, .output-wrapper {
         height: 60%;
     }
   }
+
+
+  

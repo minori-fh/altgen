@@ -1,16 +1,11 @@
 #photoview-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    height: 100%;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    grid-template-rows: repeat(2, 55%)
 }
 
 .jumbo-wrapper {
-    width: 33%;
-    max-width: 33%;
-    padding: 10px;
-    height: 60%;
     white-space: pre-wrap;
     display: flex;
     flex-direction: column;
